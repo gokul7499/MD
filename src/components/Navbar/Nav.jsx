@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { FaShoppingCart, FaUser, FaBars, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-
+import { ShoppingCart } from "lucide-react";
+// import CartDrawer from '../Cart/Cart';
+import CartDrawer from '../Cart/Cart';
 const Nav = () => {
   const [location, setLocation] = useState('Connaught Place, New Delhi');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const [isCartOpen, setIsCartOpen] = useState(false);
   return (
     <div className="w-full bg-white shadow-md font-sans z-50 fixed top-0 left-0">
       <nav className="flex items-center justify-between px-4 py-3 md:px-8 ml-5">
@@ -39,7 +41,9 @@ const Nav = () => {
             className="border border-gray-300 rounded-md px-3 py-2 md:w-64 text-gray-700"
           />
 
-          <FaShoppingCart className="text-xl cursor-pointer hover:text-black text-gray-700" />
+<button onClick={() => setIsCartOpen(true)} className="relative">
+        <ShoppingCart size={24} />
+      </button>
         <Link to="/login">  <FaUser className="text-xl cursor-pointer hover:text-black text-gray-700" /></Link>
         </div>
 
@@ -88,6 +92,7 @@ const Nav = () => {
           </div>
         </div>
       )}
+       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
 };
