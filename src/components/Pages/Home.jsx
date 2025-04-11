@@ -145,10 +145,10 @@ const Home = () => {
           <img src="/img/Constructionwork.png" alt="Slide 1" className="w-full h-full object-cover" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/img/Constructionwork.png" alt="Slide 2" className="w-full h-full object-cover" />
+          <img src="/img/cons.jpg" alt="Slide 2" className="w-full h-full object-cover" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/img/Constructionwork.png" alt="Slide 3" className="w-full h-full object-cover" />
+          <img src="/img/plumer.jpg" alt="Slide 3" className="w-full h-full object-cover" />
         </SwiperSlide>
       </Swiper>
 

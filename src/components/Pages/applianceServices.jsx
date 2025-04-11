@@ -9,27 +9,31 @@ import 'swiper/css/pagination';
 const applianceServices = [
   {
     title: 'Washing Machine Repair',
-    image: 'https://i.imgur.com/bZI4gQx.jpg',
+    image: 'https://themddevelopers.com/assets/washing-BUN-dRZE.jpeg',
   },
   {
     title: 'AC Repair & Service',
-    image: 'https://i.imgur.com/j4oO3vj.jpg',
+    image: 'https://themddevelopers.com/assets/ACReapi-BsdsE7OV.jpg',
   },
   {
     title: 'Water Purifier Repair',
-    image: 'https://i.imgur.com/3z3zGqC.jpg',
+    image: 'https://themddevelopers.com/assets/Top-Notch%20RO%20Services%20in%20Bareilly_%20Ensuring%20Clean%20and%20Safe%20Drinking%20Water-B_IYJhJ2.jpeg',
   },
   {
     title: 'Television Repair',
-    image: 'https://i.imgur.com/g9AQktg.jpg',
+    image: 'https://themddevelopers.com/assets/Refrigerator%20Repair%20Near%20Me-0CnEIiUK.jpeg',
   },
   {
     title: 'Refrigerator Repair',
-    image: 'https://i.imgur.com/XAqWsO4.jpg',
+    image: 'https://themddevelopers.com/assets/Freezer%20_%20Microwave%20Repair-C0krbpW8.jpeg',
   },
   {
     title: 'Microwave Oven Repair',
-    image: 'https://i.imgur.com/Dzn5Iho.jpg',
+    image: 'https://themddevelopers.com/assets/chimney%20service%20in%20dehradun-DSaGdDdk.jpeg',
+  },
+  {
+    title: 'Air Purifier Serivece',
+    image: 'https://themddevelopers.com/assets/K%C3%A4rcher%20-%20Air%20purifier%20AF%2020-LVNqxA-8.jpeg',
   },
 ];
 
@@ -63,8 +67,11 @@ const ApplianceRepairCarousel = () => {
             swiper.navigation.init();
             swiper.navigation.update();
           }}
-          pagination={{ clickable: true }}
-          className="pb-8"
+          pagination={{
+            clickable: true,
+            el: '.custom-swiper-pagination',
+          }}
+          className="pb-12"
         >
           {applianceServices.map((item, index) => (
             <SwiperSlide key={index}>
@@ -101,6 +108,9 @@ const ApplianceRepairCarousel = () => {
             <ChevronRight />
           </button>
         </Swiper>
+
+        {/* Custom Pagination Dots Below */}
+        <div className="custom-swiper-pagination mt-6 flex justify-center space-x-2" />
       </div>
     </div>
   );

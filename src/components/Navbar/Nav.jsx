@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaUser, FaBars, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { ShoppingCart } from "lucide-react";
@@ -9,9 +9,46 @@ const Nav = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
+  const placeholders = [
+    'Search for products',
+    'Search for brands',
+    'Search for categories',
+    'Search for AC fitting',
+    'Search for services',
+    'Search local experts',
+    'Search for building materials',
+    'Search electricians',
+    'Search construction tools',
+    'Search plumbing services',
+  ];
+
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [displayText, setDisplayText] = useState('');
+  const [typing, setTyping] = useState(true);
+
+  useEffect(() => {
+    let currentText = placeholders[placeholderIndex];
+    let charIndex = 0;
+    setDisplayText('');
+    const typeInterval = setInterval(() => {
+      if (charIndex < currentText.length) {
+        setDisplayText((prev) => prev + currentText[charIndex]);
+        charIndex++;
+      } else {
+        clearInterval(typeInterval);
+        setTyping(false);
+        setTimeout(() => {
+          setPlaceholderIndex((prev) => (prev + 1) % placeholders.length);
+          setTyping(true);
+        }, 1000); // 2-second pause before next phrase
+      }
+    }, 100); // Typing speed
+
+    return () => clearInterval(typeInterval);
+  }, [placeholderIndex, typing]);
+
   return (
     <>
-      {/* Navbar Container */}
       <div className={`fixed top-0 left-0 w-full bg-white shadow-md z-50 transition-all duration-300 ${isCartOpen ? "md:pr-80" : ""}`}>
         <nav className="flex items-center justify-between px-4 py-3 md:px-8">
           <Link to="/" className="text-2xl font-bold text-gray-800">
@@ -40,7 +77,7 @@ const Nav = () => {
 
             <input
               type="text"
-              placeholder="Search for"
+              placeholder={displayText || "Search..."}
               className="border border-gray-300 rounded-md px-3 py-2 md:w-64 text-gray-700"
             />
 
@@ -87,7 +124,7 @@ const Nav = () => {
 
               <input
                 type="text"
-                placeholder="Search for"
+                placeholder={displayText || "Search..."}
                 className="w-full border border-gray-300 rounded-md px-3 py-2 text-gray-700"
               />
             </div>
@@ -100,7 +137,6 @@ const Nav = () => {
         )}
       </div>
 
-      {/* Cart Drawer Component */}
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </>
   );
