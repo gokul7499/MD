@@ -12,6 +12,7 @@ import ServiceCarousel from './ServiceCarousel';
 import HomePainting from './HomePainting';
 import NewAndNoteworthy from './NewAndNoteworthy';
 import VideoCarousel from './VideoCarousel';
+import ApplianceRepairCarousel from './applianceServices';
 
 // ✅ Services Array
 const services = [
@@ -183,6 +184,7 @@ const Home = () => {
 <HomePainting/>
 <NewAndNoteworthy/>
 <VideoCarousel/>
+<ApplianceRepairCarousel/>
 
       {/* Modals */}
       <ConstructionModal isOpen={showConstructionModal} onClose={() => setShowConstructionModal(false)} />
