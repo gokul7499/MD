@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { FaUser, FaBars, FaTimes } from 'react-icons/fa';
+import { FaUser, FaBars, FaTimes, FaCog } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { ShoppingCart } from "lucide-react";
 import CartDrawer from '../Cart/Cart';
+// import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 
 const Nav = () => {
   const [location, setLocation] = useState('Connaught Place, New Delhi');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  // const [isSettingDrawerOpen, setIsSettingDrawerOpen] = useState(false); // ✅ Correct state name
 
   const placeholders = [
     'Search for products',
@@ -40,9 +42,9 @@ const Nav = () => {
         setTimeout(() => {
           setPlaceholderIndex((prev) => (prev + 1) % placeholders.length);
           setTyping(true);
-        }, 1000); // 2-second pause before next phrase
+        }, 1000);
       }
-    }, 100); // Typing speed
+    }, 100);
 
     return () => clearInterval(typeInterval);
   }, [placeholderIndex, typing]);
@@ -88,6 +90,11 @@ const Nav = () => {
             <Link to="/login">
               <FaUser className="text-xl cursor-pointer hover:text-black text-gray-700" />
             </Link>
+
+            {/* Settings Icon */}
+            <button className="text-xl text-gray-700 hover:text-black">
+              <FaCog />
+            </button>
           </div>
 
           {/* Mobile Menu Icon */}
@@ -132,12 +139,15 @@ const Nav = () => {
             <div className="flex justify-around pt-2 text-xl text-gray-700">
               <ShoppingCart className="cursor-pointer hover:text-black" />
               <FaUser className="cursor-pointer hover:text-black" />
+              <FaCog className="cursor-pointer hover:text-black" />
             </div>
           </div>
         )}
       </div>
 
+      {/* Drawers */}
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      {/* <SettingsDrawer isOpen={isSettingDrawerOpen} onClose={() => setIsSettingDrawerOpen(false)} /> */}
     </>
   );
 };

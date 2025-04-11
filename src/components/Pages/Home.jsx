@@ -1,3 +1,6 @@
+
+
+
 import React, { useState } from 'react';
 import {
   FaPaintRoller, FaCouch, FaHammer,
@@ -13,6 +16,12 @@ import HomePainting from './HomePainting';
 import NewAndNoteworthy from './NewAndNoteworthy';
 import VideoCarousel from './VideoCarousel';
 import ApplianceRepairCarousel from './applianceServices';
+import { IoHome } from "react-icons/io5";
+import { FaBuildingColumns } from "react-icons/fa6";
+import { SiBandsintown } from "react-icons/si";
+import { FaPaintbrush } from "react-icons/fa6";
+import { IoFlash } from "react-icons/io5";
+import { IoWaterOutline } from "react-icons/io5";
 
 // ✅ Services Array
 const services = [
@@ -31,12 +40,18 @@ const ConstructionModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const items = [
-    { name: "Home", icon: "🏠" },
-    { name: "Building", icon: "🏢" },
-    { name: "Bandhkam", icon: "🏙" },
-    { name: "Plastar", icon: "🖌" },
-    { name: "Style", icon: "⚡" },
-    { name: "Landscaping", icon: "🌲" },
+    { name: "Home", icon:<IoHome />
+    },
+    { name: "Building", icon: <FaBuildingColumns />
+    },
+    { name: "Bandhkam", icon:<SiBandsintown />
+    },
+    { name: "Plastar", icon:<FaPaintbrush />
+    },
+    { name: "Style", icon:<IoFlash />
+    },
+    { name: "Landscaping", icon:<FaTree />
+    },
   ];
 
   return (
@@ -65,10 +80,11 @@ const PaintingModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const items = [
-    { name: "Indoor", icon: "🏠" },
-    { name: "Outdoor", icon: "🌲" },
-    { name: "Waterproofing", icon: "💧" },
-    { name: "Wallpaper", icon: "🎨" },
+    { name: "Indoor", icon:<IoHome /> },
+    { name: "Outdoor", icon:<FaTree />},
+    { name: "Waterproofing", icon:<IoWaterOutline />
+    },
+    { name: "Wallpaper", icon:<FaPaintbrush />},
   ];
 
   return (
@@ -196,3 +212,5 @@ const Home = () => {
 };
 
 export default Home;
+
+
