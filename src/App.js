@@ -1,11 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import Nav from './components/Navbar/Nav';
+import Home from './components/Pages/Home'
+import LoginSignUpForm from './components/Profile/Profile'
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <Router>
+     <Nav/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginSignUpForm />} />
+      </Routes>
+    </Router>
   );
 }
 
