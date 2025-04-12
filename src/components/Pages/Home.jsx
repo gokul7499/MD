@@ -13,6 +13,10 @@ import { FaBuildingColumns } from "react-icons/fa6";
 import { SiBandsintown } from "react-icons/si";
 import { FaPaintbrush } from "react-icons/fa6";
 import { IoFlash, IoWaterOutline } from "react-icons/io5";
+import ServiceCarousel from './ServiceCarousel';
+import HomePainting from './HomePainting';
+import NewAndNoteworthy from './NewAndNoteworthy';
+import VideoCarousel from './VideoCarousel';
 
 // ✅ Services Array
 const services = [
@@ -297,6 +301,11 @@ const Home = () => {
           <img src="/img/garden.jpg" className="rounded-xl object-cover w-full h-44 md:h-48" alt="Garden" />
         </div>
       </div>
+
+      <ServiceCarousel/>
+<HomePainting/>
+<NewAndNoteworthy/>
+<VideoCarousel/>
 
       {/* Modals */}
       <ConstructionModal isOpen={showConstructionModal} onClose={() => setShowConstructionModal(false)} />
