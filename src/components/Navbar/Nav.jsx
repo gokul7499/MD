@@ -12,16 +12,16 @@ const Nav = () => {
   // const [isSettingDrawerOpen, setIsSettingDrawerOpen] = useState(false); // ✅ Correct state name
 
   const placeholders = [
-    'Search for products',
-    'Search for brands',
-    'Search for categories',
-    'Search for AC fitting',
-    'Search for services',
-    'Search local experts',
-    'Search for building materials',
-    'Search electricians',
-    'Search construction tools',
-    'Search plumbing services',
+    ' Search for products',
+    ' Search for brands',
+    ' Search for categories',
+    ' Search for AC fitting',
+    ' Search for services',
+    ' Search local experts',
+    ' Search for building materials',
+    ' Search electricians',
+    ' Search construction tools',
+    ' Search plumbing services',
   ];
 
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
