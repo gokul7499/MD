@@ -1,0 +1,13 @@
+{
+  "home": "Home",
+  "shop": "Shop",
+  "contact": "Contact Us",
+  "settings": "Settings",
+  "location": "Search for products",
+  "location_options": {
+    "delhi": "Connaught Place, New Delhi",
+    "cp": "CP, Delhi",
+    "mumbai": "Mumbai",
+    "pune": "Pune"
+  }
+}

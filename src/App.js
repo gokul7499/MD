@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import "./i18n"
 import Nav from './components/Navbar/Nav';
 import Home from './components/Pages/Home'
 import LoginSignUpForm from './components/Profile/Profile'
