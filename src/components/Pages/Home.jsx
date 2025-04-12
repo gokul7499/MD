@@ -17,7 +17,6 @@ import ServiceCarousel from './ServiceCarousel';
 import HomePainting from './HomePainting';
 import NewAndNoteworthy from './NewAndNoteworthy';
 import VideoCarousel from './VideoCarousel';
-
 // ✅ Services Array
 const services = [
   { name: 'Construction work', icon: <FaHammer /> },

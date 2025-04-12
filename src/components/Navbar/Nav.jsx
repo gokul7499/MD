@@ -6,7 +6,7 @@ import CartDrawer from '../Cart/Cart';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import { useTranslation } from 'react-i18next';
 
-const Nav = () => {
+const Nav = ({onCartClick }) => {
   const [location, setLocation] = useState('delhi');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -87,9 +87,9 @@ const Nav = () => {
               className="border border-gray-300 rounded-md px-3 py-2 md:w-64 text-gray-700"
             />
 
-            <button onClick={() => setIsCartOpen(true)} className="relative text-gray-700 hover:text-black">
-              <ShoppingCart size={24} />
-            </button>
+<button onClick={onCartClick} className="relative text-gray-700 hover:text-black">
+          <ShoppingCart size={24} />
+        </button>
 
             <Link to="/login">
               <FaUser className="text-xl cursor-pointer hover:text-black text-gray-700" />
