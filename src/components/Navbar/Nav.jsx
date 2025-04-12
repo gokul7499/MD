@@ -3,13 +3,15 @@ import { FaUser, FaBars, FaTimes, FaCog } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { ShoppingCart } from "lucide-react";
 import CartDrawer from '../Cart/Cart';
-// import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
+import SettingsDrawer from '../SettingsDrawer/SettingsDrawer'; // <-- Make sure this path is correct
+import { useTranslation } from 'react-i18next';
 
 const Nav = () => {
-  const [location, setLocation] = useState('Connaught Place, New Delhi');
+  const [location, setLocation] = useState('delhi');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  // const [isSettingDrawerOpen, setIsSettingDrawerOpen] = useState(false); // ✅ Correct state name
+  const [isSettingsDrawerOpen, setIsSettingsDrawerOpen] = useState(false);
+  const { t } = useTranslation();
 
   const placeholders = [
     'Search for products',
@@ -59,9 +61,9 @@ const Nav = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8 text-base font-medium">
-            <Link to="/" className="text-gray-600 hover:text-black">Home</Link>
-            <Link to="/shop" className="text-gray-600 hover:text-black">Shop</Link>
-            <Link to="/contact" className="text-gray-600 hover:text-black">Contact Us</Link>
+            <Link to="/" className="text-gray-600 hover:text-black">{t('home')}</Link>
+            <Link to="/shop" className="text-gray-600 hover:text-black">{t('shop')}</Link>
+            <Link to="/contact" className="text-gray-600 hover:text-black">{t('contact')}</Link>
           </div>
 
           {/* Desktop Right Side */}
@@ -71,15 +73,15 @@ const Nav = () => {
               onChange={(e) => setLocation(e.target.value)}
               className="border border-gray-300 rounded-md px-3 py-2 text-gray-700"
             >
-              <option>Connaught Place, New Delhi</option>
-              <option>CP, Delhi</option>
-              <option>Mumbai</option>
-              <option>Pune</option>
+              <option value="delhi">{t('location_options.delhi')}</option>
+              <option value="cp">{t('location_options.cp')}</option>
+              <option value="mumbai">{t('location_options.mumbai')}</option>
+              <option value="pune">{t('location_options.pune')}</option>
             </select>
 
             <input
               type="text"
-              placeholder={displayText || "Search..."}
+              placeholder={displayText || t('location')}
               className="border border-gray-300 rounded-md px-3 py-2 md:w-64 text-gray-700"
             />
 
@@ -91,63 +93,37 @@ const Nav = () => {
               <FaUser className="text-xl cursor-pointer hover:text-black text-gray-700" />
             </Link>
 
-            {/* Settings Icon */}
-            <button className="text-xl text-gray-700 hover:text-black">
+            <button onClick={() => setIsSettingsDrawerOpen(true)} className="text-xl text-gray-700 hover:text-black">
               <FaCog />
             </button>
           </div>
 
-          {/* Mobile Menu Icon */}
+          {/* Mobile Menu Toggle */}
           <div className="md:hidden">
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-2xl text-gray-800"
-            >
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-700 text-xl">
               {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
             </button>
           </div>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Dropdown */}
         {isMobileMenuOpen && (
-          <div className="md:hidden px-4 py-4 space-y-6 bg-white border-t border-gray-200">
-            <div className="flex flex-col items-center space-y-3 text-base font-medium">
-              <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">Home</Link>
-              <Link to="/shop" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">Shop</Link>
-              <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">Contact Us</Link>
-            </div>
-
-            <div className="flex flex-col space-y-3">
-              <select
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-gray-700"
-              >
-                <option>Connaught Place, New Delhi</option>
-                <option>CP, Delhi</option>
-                <option>Mumbai</option>
-                <option>Pune</option>
-              </select>
-
-              <input
-                type="text"
-                placeholder={displayText || "Search..."}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-gray-700"
-              />
-            </div>
-
-            <div className="flex justify-around pt-2 text-xl text-gray-700">
-              <ShoppingCart className="cursor-pointer hover:text-black" />
-              <FaUser className="cursor-pointer hover:text-black" />
-              <FaCog className="cursor-pointer hover:text-black" />
-            </div>
+          <div className="md:hidden px-4 py-3 bg-white shadow-md">
+            <Link to="/" className="block py-2 text-gray-600 hover:text-black">{t('home')}</Link>
+            <Link to="/shop" className="block py-2 text-gray-600 hover:text-black">{t('shop')}</Link>
+            <Link to="/contact" className="block py-2 text-gray-600 hover:text-black">{t('contact')}</Link>
+            <button onClick={() => setIsSettingsDrawerOpen(true)} className="block py-2 text-gray-600 hover:text-black flex items-center gap-2">
+              <FaCog /> {t('settings')}
+            </button>
           </div>
         )}
       </div>
 
-      {/* Drawers */}
-      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-      {/* <SettingsDrawer isOpen={isSettingDrawerOpen} onClose={() => setIsSettingDrawerOpen(false)} /> */}
+      {/* Cart Drawer */}
+      {isCartOpen && <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />}
+
+      {/* Settings Drawer */}
+      <SettingsDrawer isOpen={isSettingsDrawerOpen} onClose={() => setIsSettingsDrawerOpen(false)} />
     </>
   );
 };
