@@ -1,7 +1,5 @@
-
-
-
 import React, { useState } from 'react';
+
 import {
   FaPaintRoller, FaCouch, FaHammer,
   FaRulerCombined, FaSnowflake,
@@ -20,8 +18,7 @@ import { IoHome } from "react-icons/io5";
 import { FaBuildingColumns } from "react-icons/fa6";
 import { SiBandsintown } from "react-icons/si";
 import { FaPaintbrush } from "react-icons/fa6";
-import { IoFlash } from "react-icons/io5";
-import { IoWaterOutline } from "react-icons/io5";
+import { IoFlash, IoWaterOutline } from "react-icons/io5";
 
 // ✅ Services Array
 const services = [
@@ -35,56 +32,194 @@ const services = [
   { name: 'Furniture', icon: <FaCouch /> },
 ];
 
-// ✅ Construction Modal Component
+
 const ConstructionModal = ({ isOpen, onClose }) => {
+  const [addedServices, setAddedServices] = useState([]);
+  const [selectedSub, setSelectedSub] = useState(null);
+  // const [selectedSub, setSelectedSub] = useState(null);
+  const [selectedServices, setSelectedServices] = useState([]);
+  
   if (!isOpen) return null;
 
   const items = [
-    { name: "Home", icon:<IoHome />
+    { name: "Home", icon: <IoHome /> },
+    { name: "Building", icon: <FaBuildingColumns /> },
+    { name: "Bandhkam", icon: <SiBandsintown /> },
+    { name: "Plastar", icon: <FaPaintbrush /> },
+    { name: "Style", icon: <IoFlash /> },
+    { name: "Landscaping", icon: <FaTree /> },
+  ];
+
+
+  const bandkamServices = [
+    {
+      title: "55 Plus Housing",
+      desc: "The 55+ niche is vitally important to help ease the transitions between life stages. ",
+      rating: "4.85",
+      reviews: "1.9M"
     },
-    { name: "Building", icon: <FaBuildingColumns />
+    {
+      title: "Concrete Building",
+      desc: "Concrete has been an essential home building material for the past century.",
+      rating: "4.86",
+      reviews: "2.2M"
     },
-    { name: "Bandhkam", icon:<SiBandsintown />
+    {
+      title: "Custom Homes",
+      desc: "Custom builders create homes for each owner from private stock.",
+      rating: "4.86",
+      reviews: "2.2M"
     },
-    { name: "Plastar", icon:<FaPaintbrush />
-    },
-    { name: "Style", icon:<IoFlash />
-    },
-    { name: "Landscaping", icon:<FaTree />
+    {
+      title: "Log Homes",
+      desc: "Log homes feel like going on vacation every day.",
+      rating: "4.86",
+      reviews: "2.2M"
     },
   ];
 
+ 
+
+  const handleAddService = (service) => {
+    const exists = addedServices.some((s) => s.title === service.title);
+    if (!exists) {
+      setAddedServices([...addedServices, service]);
+    }
+  };
+
+  const handleDeleteService = (title) => {
+    setAddedServices(addedServices.filter((s) => s.title !== title));
+  };
+
+  const handleSendToWhatsApp = () => {
+    const text = addedServices.map((s) => `• ${s.title}`).join('\n');
+    const whatsappLink = `https://wa.me/919876543210?text=${encodeURIComponent(`Selected Services:\n${text}`)}`;
+    window.open(whatsappLink, '_blank');
+  };
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-xl shadow-lg w-[90%] max-w-xl relative">
-        <button className="absolute top-3 right-3 text-2xl font-bold text-black" onClick={onClose}>×</button>
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 overflow-y-auto">
+      <div className="bg-white p-6 rounded-xl shadow-lg w-[95%] max-w-4xl relative">
+        <button className="absolute top-5 right-3 text-2xl font-bold text-black" onClick={onClose}>×</button>
         <h2 className="text-xl font-semibold text-center mb-6">All Construction Work</h2>
-        <div className="grid grid-cols-2 gap-4">
-          {items.map((item, index) => (
-            <div
-              key={index}
-              className="bg-gray-100 hover:bg-blue-100 transition-all rounded-lg flex flex-col items-center justify-center h-24 p-3"
-            >
-              <div className="text-2xl mb-1">{item.icon}</div>
-              <p className="text-gray-800 font-medium">{item.name}</p>
+
+        
+
+        {selectedSub && (
+  <>
+<img
+  src={
+    selectedSub === "Home" ? "/img/home.jpg" :
+    selectedSub === "Bandhkam" ? "/img/Constructionwork.png" :
+    selectedSub === "Plastar" ? "/img/plastar.jpg" :
+    selectedSub === "Style" ? "/img/style.jpg" :
+    selectedSub === "Building" ? "/img/building.jpg" :
+    selectedSub === "Landscaping" ? "/img/land.jpg" :
+    "/img/default.jpg"
+  }
+  alt={`${selectedSub} banner`}
+  className="rounded-lg mb-4 w-full h-48 md:h-56 lg:h-64 object-cover"
+/>
+
+
+     <div className="p-4">
+      {/* Services Carousel */}
+      <Swiper
+        spaceBetween={20}
+        slidesPerView={1}
+        breakpoints={{ 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }}
+        className="mb-6"
+      >
+        {bandkamServices.map((service, idx) => (
+          <SwiperSlide key={idx}>
+            <div className="bg-white border rounded-lg shadow p-5 h-full">
+              <div className='flex justify-between items-center mt-1'>
+                <h4 className="text-green-600 font-bold text-sm mt-2">SERVICE</h4>
+                <button
+                  className="text-white px-4 py-2 text-green-600 border rounded-lg text-sm"
+                  onClick={() => handleAddService(service)}
+                >
+                  Add
+                </button>
+              </div>
+              <div className="flex justify-between items-center mt-3">
+                <h3 className="font-bold text-lg">{service.title}</h3>
+              </div>
+              <div className="flex items-center text-sm text-gray-700 mt-1">
+                ⭐ {service.rating} ({service.reviews} reviews)
+              </div>
+              <p className="text-gray-700 text-sm mt-3">{service.desc}</p>
             </div>
-          ))}
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      {/* Added Services Carousel */}
+      {addedServices.length > 0 && (
+        <div className="bg-white p-4 rounded-lg border shadow mb-4">
+          <h3 className="text-xl font-bold mb-4 text-center">Added Service will be shown here</h3>
+          <Swiper
+            spaceBetween={20}
+            slidesPerView={1}
+            breakpoints={{ 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }}
+          >
+            {addedServices.map((service, index) => (
+              <SwiperSlide key={index}>
+                <div className="border p-4 rounded-lg flex flex-col items-center text-center shadow">
+                  <p className="text-gray-800 font-medium mb-2">{service.title}</p>
+                  <button
+                    className="bg-blue-100 text-blue-900 font-bold px-3 py-1 rounded"
+                    onClick={() => handleDeleteService(service.title)}
+                  >
+                    delete
+                  </button>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          <button
+            className="mt-6 w-full bg-red-400 text-white font-semibold text-lg py-3 rounded-lg"
+            onClick={handleSendToWhatsApp}
+          >
+            Sent Services to MD Developers Via whatsapp Now
+          </button>
         </div>
+      )}
+    </div>
+
+{/* Show Selected Services Below */}
+{selectedServices.length > 0 && (
+  <div className="mt-6">
+    <h3 className="text-lg font-semibold mb-3 text-gray-800">Selected Services:</h3>
+    <ul className="list-disc list-inside text-gray-700">
+      {selectedServices.map((service, idx) => (
+        <li key={idx}>{service.title}</li>
+      ))}
+    </ul>
+  </div>
+)}
+
+
+
+  </>
+)}
+
+
       </div>
     </div>
   );
 };
 
-// ✅ Painting Modal Component
+// ✅ Painting Modal
 const PaintingModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const items = [
-    { name: "Indoor", icon:<IoHome /> },
-    { name: "Outdoor", icon:<FaTree />},
-    { name: "Waterproofing", icon:<IoWaterOutline />
-    },
-    { name: "Wallpaper", icon:<FaPaintbrush />},
+    { name: "Indoor", icon: <IoHome /> },
+    { name: "Outdoor", icon: <FaTree /> },
+    { name: "Waterproofing", icon: <IoWaterOutline /> },
+    { name: "Wallpaper", icon: <FaPaintbrush /> },
   ];
 
   return (
@@ -108,7 +243,7 @@ const PaintingModal = ({ isOpen, onClose }) => {
   );
 };
 
-// ✅ Pop Work Modal Component (Fixed Name)
+// ✅ Pop Work Modal
 const PopworkModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
@@ -140,7 +275,7 @@ const PopworkModal = ({ isOpen, onClose }) => {
   );
 };
 
-// ✅ Home Component
+// ✅ Main Home Component
 const Home = () => {
   const [showConstructionModal, setShowConstructionModal] = useState(false);
   const [showPaintingModal, setShowPaintingModal] = useState(false);
@@ -191,26 +326,24 @@ const Home = () => {
         {/* Gallery Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <img src="/img/AC.jpg" className="rounded-xl object-cover w-full h-44 md:h-48" alt="AC Work" />
-          <img src="/img/water.jpg" className="rounded-xl object-cover w-full h-44 md:h-48" alt="Water Work" />
+          <img src="/img/Plumbing.png" className="rounded-xl object-cover w-full h-44 md:h-48" alt="Water Work" />
           <img src="/img/lawn.jpg" className="rounded-xl object-cover w-full h-44 md:h-48" alt="Lawn" />
           <img src="/img/garden.jpg" className="rounded-xl object-cover w-full h-44 md:h-48" alt="Garden" />
         </div>
       </div>
-<ServiceCarousel/>
-<HomePainting/>
-<NewAndNoteworthy/>
-<VideoCarousel/>
-<ApplianceRepairCarousel/>
+
+      <ServiceCarousel />
+      <HomePainting />
+      <NewAndNoteworthy />
+      <VideoCarousel />
+      <ApplianceRepairCarousel />
 
       {/* Modals */}
       <ConstructionModal isOpen={showConstructionModal} onClose={() => setShowConstructionModal(false)} />
       <PaintingModal isOpen={showPaintingModal} onClose={() => setShowPaintingModal(false)} />
       <PopworkModal isOpen={showPopworkModal} onClose={() => setShowPopworkModal(false)} />
     </div>
-    
   );
 };
 
 export default Home;
-
-
