@@ -3,7 +3,7 @@ import { FaUser, FaBars, FaTimes, FaCog } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { ShoppingCart } from "lucide-react";
 import CartDrawer from '../Cart/Cart';
-import SettingsDrawer from '../SettingsDrawer/SettingsDrawer'; // <-- Make sure this path is correct
+import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import { useTranslation } from 'react-i18next';
 
 const Nav = () => {
@@ -51,9 +51,11 @@ const Nav = () => {
     return () => clearInterval(typeInterval);
   }, [placeholderIndex, typing]);
 
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
   return (
     <>
-      <div className={`fixed top-0 left-0 w-full bg-white shadow-md z-50 transition-all duration-300 ${isCartOpen ? "md:pr-80" : ""}`}>
+      <div className={`fixed top-0 left-0 w-full bg-white shadow-md z-50 transition-all duration-300`}>
         <nav className="flex items-center justify-between px-4 py-3 md:px-8">
           <Link to="/" className="text-2xl font-bold text-gray-800">
             MD Developer
@@ -108,19 +110,67 @@ const Nav = () => {
 
         {/* Mobile Menu Dropdown */}
         {isMobileMenuOpen && (
-          <div className="md:hidden px-4 py-3 bg-white shadow-md">
-            <Link to="/" className="block py-2 text-gray-600 hover:text-black">{t('home')}</Link>
-            <Link to="/shop" className="block py-2 text-gray-600 hover:text-black">{t('shop')}</Link>
-            <Link to="/contact" className="block py-2 text-gray-600 hover:text-black">{t('contact')}</Link>
-            <button onClick={() => setIsSettingsDrawerOpen(true)} className="block py-2 text-gray-600 hover:text-black flex items-center gap-2">
+          <div className="md:hidden px-4 py-3 bg-white shadow-md flex flex-col items-center">
+            <Link
+              to="/"
+              onClick={() => {
+                closeMobileMenu();  // Close the mobile menu on click
+              }}
+              className="py-2 text-gray-600 hover:text-black"
+            >
+              {t('home')}
+            </Link>
+            <Link
+              to="/shop"
+              onClick={() => {
+                closeMobileMenu();  // Close the mobile menu on click
+              }}
+              className="py-2 text-gray-600 hover:text-black"
+            >
+              {t('shop')}
+            </Link>
+            <Link
+              to="/contact"
+              onClick={() => {
+                closeMobileMenu();  // Close the mobile menu on click
+              }}
+              className="py-2 text-gray-600 hover:text-black"
+            >
+              {t('contact')}
+            </Link>
+            <button
+              onClick={() => {
+                setIsSettingsDrawerOpen(true);
+                closeMobileMenu();  // Close the mobile menu on click
+              }}
+              className="py-2 text-gray-600 hover:text-black flex items-center gap-2"
+            >
               <FaCog /> {t('settings')}
             </button>
+            <div className="flex space-x-4 mt-4">
+              <button
+                onClick={() => {
+                  setIsCartOpen(true);
+                  closeMobileMenu();  // Close the mobile menu on click
+                }}
+                className="text-gray-700 hover:text-black"
+              >
+                <ShoppingCart size={24} />
+              </button>
+              <Link to="/login" onClick={() => closeMobileMenu()}>
+                <FaUser className="text-xl cursor-pointer hover:text-black text-gray-700" />
+              </Link>
+            </div>
           </div>
         )}
       </div>
 
       {/* Cart Drawer */}
-      {isCartOpen && <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />}
+      {isCartOpen && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+          <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+        </div>
+      )}
 
       {/* Settings Drawer */}
       <SettingsDrawer isOpen={isSettingsDrawerOpen} onClose={() => setIsSettingsDrawerOpen(false)} />
