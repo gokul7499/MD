@@ -1,6 +1,9 @@
+// src/App.js
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css';
 import './i18n';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import Nav from './components/Navbar/Nav';
 import Home from './components/Pages/Home';
 import LoginSignUpForm from './components/Profile/Profile';
@@ -8,12 +11,17 @@ import Footer from './components/Footer/Footer';
 import Contact from './components/Pages/Contact';
 import Shop from './components/Pages/Shop';
 import CartDrawer from './components/Cart/Cart';
+import SettingsDrawer from './components/SettingsDrawer/SettingsDrawer';
+import Checkout from './components/Pages/Checkout';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [theme, setTheme] = useState('dark');
 
-  // Add item to cart
   const handleBuy = (item) => {
     setCartItems((prevItems) => {
       const existing = prevItems.find((i) => i.id === item.id);
@@ -28,37 +36,56 @@ function App() {
     setIsCartOpen(true);
   };
 
-  // Close cart and clear items
-  const handleCartClose = () => {
-    setIsCartOpen(false);
-    setCartItems([]);
+  const handleRemove = (itemId) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
   };
 
-  // Handle Escape key to close and clear cart
+  const handleBuySingle = (item) => {
+    alert(`Buying ${item.name} (${item.quantity}) - ₹${item.price * item.quantity}`);
+  };
+
+  const handleCartClose = () => setIsCartOpen(false);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        handleCartClose();
-      }
+      if (e.key === 'Escape') handleCartClose();
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  useEffect(() => {
+    document.body.className = '';
+    document.body.classList.add(`theme-${theme}`);
+  }, [theme]);
+
   return (
     <Router>
-      <Nav onCartClick={() => setIsCartOpen(true)} />
+      <ToastContainer />
+      <Nav onCartClick={() => setIsCartOpen(true)} onSettingsClick={() => setIsSettingsOpen(true)} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop onBuy={handleBuy} />} />
+        <Route path="/checkout" element={<Checkout cartItems={cartItems} />} /> {/* Pass cartItems to Checkout */}
         <Route path="/login" element={<LoginSignUpForm />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+
       <CartDrawer
         isOpen={isCartOpen}
         onClose={handleCartClose}
         cartItems={cartItems}
+        onRemove={handleRemove}
+        onBuySingle={handleBuySingle}
       />
+
+      <SettingsDrawer
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+        theme={theme}
+        setTheme={setTheme}
+      />
+
       <Footer />
     </Router>
   );

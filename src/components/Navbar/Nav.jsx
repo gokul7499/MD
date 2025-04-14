@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FaUser, FaBars, FaTimes, FaCog } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate here
 import { ShoppingCart } from "lucide-react";
 import CartDrawer from '../Cart/Cart';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import { useTranslation } from 'react-i18next';
 
-const Nav = ({onCartClick }) => {
+const Nav = ({ onCartClick }) => {
+  const navigate = useNavigate(); // Initialize the navigate hook here
   const [location, setLocation] = useState('delhi');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -53,6 +54,10 @@ const Nav = ({onCartClick }) => {
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
+  const handleUserIconClick = () => {
+    navigate('/login');  // Use navigate to go to profile page
+  };
+
   return (
     <>
       <div className={`fixed top-0 left-0 w-full bg-white shadow-md z-50 transition-all duration-300`}>
@@ -87,17 +92,18 @@ const Nav = ({onCartClick }) => {
               className="border border-gray-300 rounded-md px-3 py-2 md:w-64 text-gray-700"
             />
 
-<button onClick={onCartClick} className="relative text-gray-700 hover:text-black">
-          <ShoppingCart size={24} />
-        </button>
+            <button onClick={onCartClick} className="relative text-gray-700 hover:text-black">
+              <ShoppingCart size={24} />
+            </button>
 
-            <Link to="/login">
+            <button onClick={handleUserIconClick}>  {/* Add the click handler for user icon */}
               <FaUser className="text-xl cursor-pointer hover:text-black text-gray-700" />
-            </Link>
+            </button>
 
             <button onClick={() => setIsSettingsDrawerOpen(true)} className="text-xl text-gray-700 hover:text-black">
               <FaCog />
             </button>
+            
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -157,9 +163,12 @@ const Nav = ({onCartClick }) => {
               >
                 <ShoppingCart size={24} />
               </button>
-              <Link to="/login" onClick={() => closeMobileMenu()}>
+              <button onClick={() => {
+                closeMobileMenu();
+                handleUserIconClick();  // Navigate to profile page on click
+              }}>
                 <FaUser className="text-xl cursor-pointer hover:text-black text-gray-700" />
-              </Link>
+              </button>
             </div>
           </div>
         )}

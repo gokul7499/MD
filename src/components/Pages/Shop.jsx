@@ -1,44 +1,88 @@
 import React from 'react';
 
-const materials = [
-  { id: 1, name: 'Cement (50kg)', price: 350, image: 'https://via.placeholder.com/150?text=Cement', category: 'Construction' },
-  { id: 2, name: 'Bricks (100 pcs)', price: 800, image: 'https://via.placeholder.com/150?text=Bricks', category: 'Construction' },
-  { id: 3, name: 'Sand (1 Ton)', price: 1200, image: 'https://via.placeholder.com/150?text=Sand', category: 'Construction' },
-  { id: 4, name: 'Steel Rods (12mm)', price: 2500, image: 'https://via.placeholder.com/150?text=Steel+Rods', category: 'Construction' },
-  { id: 5, name: 'AC Copper Pipe (1 Meter)', price: 350, image: 'https://via.placeholder.com/150?text=AC+Pipe', category: 'AC' },
-  { id: 6, name: 'Split AC Bracket', price: 500, image: 'https://via.placeholder.com/150?text=AC+Bracket', category: 'AC' },
-  { id: 7, name: 'AC Gas (R32, 1kg)', price: 600, image: 'https://via.placeholder.com/150?text=AC+Gas', category: 'AC' },
-  { id: 8, name: 'Switch Board (4 Switch)', price: 150, image: 'https://via.placeholder.com/150?text=Switch+Board', category: 'Electrical' },
-  { id: 9, name: 'Electrical Wire (90m)', price: 1800, image: 'https://via.placeholder.com/150?text=Wire+Roll', category: 'Electrical' },
-  { id: 10, name: 'LED Tube Light (18W)', price: 250, image: 'https://via.placeholder.com/150?text=LED+Tube', category: 'Electrical' },
+const products = [
+  {
+    id: 1,
+    name: 'Woo Ninja',
+    category: 'Hoodies',
+    price: 15,
+    image: 'https://via.placeholder.com/150?text=Wheelbarrow',
+  },
+  {
+    id: 2,
+    name: 'Woo Logo',
+    category: 'Hoodies',
+    price: 12,
+    image: 'https://via.placeholder.com/150?text=Hammer',
+  },
+  {
+    id: 3,
+    name: 'Suggest Price',
+    category: 'Clothing',
+    price: 35,
+    image: 'https://via.placeholder.com/150?text=Tool+3',
+    sale: true,
+  },
+  {
+    id: 4,
+    name: 'Stock Progress Bar',
+    category: 'Clothing',
+    price: 35,
+    image: 'https://via.placeholder.com/150?text=Machine',
+  },
+  {
+    id: 5,
+    name: 'Ship Your Idea',
+    category: 'Clothing',
+    price: 30,
+    image: 'https://via.placeholder.com/150?text=Tools+Set',
+    priceRange: true,
+    sale: true,
+  },
+  {
+    id: 6,
+    name: 'Rock Colorful Suit',
+    category: 'Hoodies',
+    price: 15,
+    image: 'https://via.placeholder.com/150?text=Tools+Black',
+  },
 ];
 
 const Shop = ({ onBuy }) => {
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
-        🛒 Construction & AC Material Shop
-      </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {materials.map((item) => (
+    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 pt-24 pb-10 px-4">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {products.map((product) => (
           <div
-            key={item.id}
-            className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center"
+            key={product.id}
+            className="bg-white rounded-xl p-4 shadow hover:shadow-lg transition-transform transform hover:scale-105 relative"
           >
+            {product.sale && (
+              <span className="absolute top-2 right-2 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs px-2 py-1 rounded-full shadow">
+                SALE!
+              </span>
+            )}
             <img
-              src={item.image}
-              alt={item.name}
-              className="w-32 h-32 object-cover mb-4 rounded"
+              src={product.image}
+              alt={product.name}
+              className="w-full h-24 object-contain mb-3 rounded"
             />
-            <h2 className="text-lg font-semibold text-gray-700 text-center">{item.name}</h2>
-            <p className="text-blue-600 font-bold mt-2">₹{item.price}</p>
-            <p className="text-xs text-gray-400">{item.category}</p>
-            <button
-              onClick={() => onBuy(item)}
-              className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
-            >
-              Buy Now
-            </button>
+            <p className="text-xs text-gray-500">{product.category}</p>
+            <h3 className="text-md font-semibold text-gray-800">{product.name}</h3>
+            <p className="text-sm font-bold text-gray-700 mt-1">
+              {product.priceRange ? `£${product.price} - £55.00` : `£${product.price}.00`}
+            </p>
+            <div className="flex gap-2 mt-4">
+              <button
+                onClick={() => onBuy(product)}
+                className="flex-1 bg-teal-600 text-white text-xs py-1 rounded hover:bg-teal-700 transition"
+              >
+                Add
+              </button>
+              <button className="flex-1 bg-purple-600 text-white text-xs py-1 rounded hover:bg-purple-700 transition">
+                Buy
+              </button>
+            </div>
           </div>
         ))}
       </div>
