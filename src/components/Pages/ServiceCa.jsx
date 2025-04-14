@@ -37,7 +37,7 @@ const services = [
     reviews: '2.2M',
     description: [
       'Log and timber homes are a healthier, organic, sustainable and environmentally friendly option.',
-    
+  
     ]
   }
 ];
