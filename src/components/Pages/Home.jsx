@@ -361,7 +361,7 @@ const Home = () => {
   const [showFurnitureModal, setShowFurnitureModal] = useState(false);
   const [showHomePlanModal, setHomePlanShowModal] = useState(false);
   const [showFlooringModal, setFlooringShowModal] = useState(false);
-  const [showPopWorkModal, setPopWorkShowModal] = useState(false);
+  const [showPopModal, setShowPopModal] = useState(false);
   const handleClose = () => setHomePlanShowModal(false);
 
   const handleSelectPlan = (planType) => {
@@ -423,7 +423,7 @@ const Home = () => {
                 if (service.name === "Furniture") setShowFurnitureModal(true);
                 if (service.name === "Home Plan") setHomePlanShowModal(true);
                 if (service.name === "Flooring Work") setFlooringShowModal(true);
-                if (service.name === "Pop Work") setPopWorkShowModal(true);
+                if (service.name === "Pop Work") setShowPopModal(true);
               }}
             >
               <div className="text-blue-600 text-3xl mb-3">{service.icon}</div>
@@ -487,7 +487,7 @@ const Home = () => {
         isOpen={showFurnitureModal}
         onClose={() => setShowFurnitureModal(false)}
       />
-      <PopWorkModal  isOpen={showPopWorkModal} onClose={() => setPopWorkShowModal(false)} />
+      {/* <PopWorkModal  isOpen={showPopWorkModal} onClose={() => setPopWorkShowModal(false)} /> */}
       {showFlooringModal && (
         <FlooringModal
           isOpen={showFlooringModal}
@@ -499,11 +499,8 @@ const Home = () => {
         isOpen={ACmodalOpen}
         onClose={() => setACModalOpen(false)}
       />
-      {showPopWorkModal && (
-      <PopWorkModal
-      isOpen={showPopWorkModal}
-        onClose={() => setShowPopworkModal(false)}
-      />
+       {showPopModal && (
+        <PopWorkModal  isOpen={showPopModal} onClose={() => setShowPopModal(false)} />
       )}
     </div>
   );
