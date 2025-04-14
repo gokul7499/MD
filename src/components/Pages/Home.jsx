@@ -29,6 +29,7 @@ import ServiceModal from "./SeriveModal";
 import FurniturePlanningModal from "./FurniturePlanningModal";
 import HomePlanningModal from "./HomePlanningModal";
 import FlooringModal from "./FlooringModal";
+import PopWorkModal from "./PopWorkModal";
 const services = [
   { name: "Construction work", icon: <FaHammer /> },
   { name: "Painting Work", icon: <FaPaintRoller /> },
@@ -152,9 +153,8 @@ const ConstructionModal = ({ isOpen, onClose }) => {
               <div
                 key={index}
                 onClick={() => setSelectedSub(item.name)}
-                className={`bg-gray-100 hover:bg-blue-100 cursor-pointer rounded-lg flex flex-col items-center justify-center p-4 transition-all ${
-                  selectedSub === item.name ? "ring-2 ring-blue-500" : ""
-                }`}
+                className={`bg-gray-100 hover:bg-blue-100 cursor-pointer rounded-lg flex flex-col items-center justify-center p-4 transition-all ${selectedSub === item.name ? "ring-2 ring-blue-500" : ""
+                  }`}
               >
                 <div className="text-3xl mb-2">{item.icon}</div>
                 <p className="text-gray-800 font-medium">{item.name}</p>
@@ -169,16 +169,16 @@ const ConstructionModal = ({ isOpen, onClose }) => {
                   selectedSub === "Home"
                     ? "/img/home.jpg"
                     : selectedSub === "Bandhkam"
-                    ? "/img/Constructionwork.png"
-                    : selectedSub === "Plastar"
-                    ? "/img/plastar.jpg"
-                    : selectedSub === "Style"
-                    ? "/img/style.jpg"
-                    : selectedSub === "Building"
-                    ? "/img/building.jpg"
-                    : selectedSub === "Landscaping"
-                    ? "/img/land.jpg"
-                    : "/img/default.jpg"
+                      ? "/img/Constructionwork.png"
+                      : selectedSub === "Plastar"
+                        ? "/img/plastar.jpg"
+                        : selectedSub === "Style"
+                          ? "/img/style.jpg"
+                          : selectedSub === "Building"
+                            ? "/img/building.jpg"
+                            : selectedSub === "Landscaping"
+                              ? "/img/land.jpg"
+                              : "/img/default.jpg"
                 }
                 alt={`${selectedSub} banner`}
                 className="rounded-lg mb-4 w-full h-48 md:h-56 lg:h-64 object-cover"
@@ -197,8 +197,8 @@ const ConstructionModal = ({ isOpen, onClose }) => {
                 {(selectedSub === "Bandhkam"
                   ? bandkamServices
                   : selectedSub === "Landscaping"
-                  ? landscapingServices
-                  : []
+                    ? landscapingServices
+                    : []
                 ).map((service, idx) => (
                   <SwiperSlide key={idx}>
                     <div className="bg-white border rounded-lg shadow p-5 h-full">
@@ -349,41 +349,7 @@ const LandingModal = ({ isOpen, onClose }) => {
   );
 };
 // ✅ Pop Work Modal Component
-const PopworkModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
 
-  const items = [
-    { name: "Indoor", icon: "🏠" },
-    { name: "Outdoor", icon: "🌲" },
-    { name: "Waterproofing", icon: "💧" },
-    { name: "Wallpaper", icon: "🎨" },
-  ];
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-xl shadow-lg w-[90%] max-w-xl relative">
-        <button
-          className="absolute top-3 right-3 text-2xl font-bold text-black"
-          onClick={onClose}
-        >
-          ×
-        </button>
-        <h2 className="text-xl font-semibold text-center mb-6">All Pop Work</h2>
-        <div className="grid grid-cols-2 gap-4">
-          {items.map((item, index) => (
-            <div
-              key={index}
-              className="bg-gray-100 hover:bg-blue-100 transition-all rounded-lg flex flex-col items-center justify-center p-6"
-            >
-              <div className="text-3xl mb-2">{item.icon}</div>
-              <p className="text-gray-800 font-medium">{item.name}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
 
 // ✅ Main Home Component
 const Home = () => {
@@ -395,7 +361,7 @@ const Home = () => {
   const [showFurnitureModal, setShowFurnitureModal] = useState(false);
   const [showHomePlanModal, setHomePlanShowModal] = useState(false);
   const [showFlooringModal, setFlooringShowModal] = useState(false);
-  
+  const [showPopWorkModal, setPopWorkShowModal] = useState(false);
   const handleClose = () => setHomePlanShowModal(false);
 
   const handleSelectPlan = (planType) => {
@@ -457,7 +423,7 @@ const Home = () => {
                 if (service.name === "Furniture") setShowFurnitureModal(true);
                 if (service.name === "Home Plan") setHomePlanShowModal(true);
                 if (service.name === "Flooring Work") setFlooringShowModal(true);
-
+                if (service.name === "Pop Work") setPopWorkShowModal(true);
               }}
             >
               <div className="text-blue-600 text-3xl mb-3">{service.icon}</div>
@@ -511,7 +477,7 @@ const Home = () => {
         isOpen={showPaintingModal}
         onClose={() => setShowPaintingModal(false)}
       />
-          {showHomePlanModal && (
+      {showHomePlanModal && (
         <HomePlanningModal
           onClose={handleClose}
           onSelectPlan={handleSelectPlan}
@@ -521,21 +487,24 @@ const Home = () => {
         isOpen={showFurnitureModal}
         onClose={() => setShowFurnitureModal(false)}
       />
-         {showFlooringModal && (
+      <PopWorkModal  isOpen={showPopWorkModal} onClose={() => setPopWorkShowModal(false)} />
+      {showFlooringModal && (
         <FlooringModal
-        isOpen={showFlooringModal}
-        onClose={() => setFlooringShowModal(false)}
-      />
+          isOpen={showFlooringModal}
+          onClose={() => setFlooringShowModal(false)}
+        />
       )}
-      
+
       <ServiceModal
         isOpen={ACmodalOpen}
         onClose={() => setACModalOpen(false)}
       />
-      <PopworkModal
-        isOpen={showPopworkModal}
+      {showPopWorkModal && (
+      <PopWorkModal
+      isOpen={showPopWorkModal}
         onClose={() => setShowPopworkModal(false)}
       />
+      )}
     </div>
   );
 };
