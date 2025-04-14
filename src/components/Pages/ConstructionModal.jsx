@@ -1,12 +1,33 @@
 import React, { useState } from "react";
 import { X } from "lucide-react";
 import { FaHome, FaBuilding, FaPaintRoller, FaLightbulb } from "react-icons/fa";
-import ServiceCarousel from "./ServiceCa"; // Reuse same component
+import { motion, AnimatePresence } from "framer-motion";
+import ServiceCarousel from "./ServiceCa";
+
+// Animation variants
+const backdropVariant = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.4 } },
+  exit: { opacity: 0, transition: { duration: 0.3 } },
+};
+
+const modalVariant = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+  exit: { opacity: 0, scale: 0.9, transition: { duration: 0.4 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: (i) => ({
+    opacity: 1,
+    scale: 1,
+    transition: { delay: i * 0.2, duration: 0.5 },
+  }),
+};
 
 const ConstructionModal = ({ isOpen, onClose }) => {
   const [selectedService, setSelectedService] = useState(null);
-
-  if (!isOpen) return null;
 
   const services = [
     { name: "Home", icon: <FaHome size={28} /> },
@@ -27,47 +48,83 @@ const ConstructionModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-    <div className="bg-white rounded-2xl shadow-lg w-[98%] max-w-5xl p-6 relative overflow-y-auto max-h-[90vh]">
-      <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-600 hover:text-black"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50"
+          variants={backdropVariant}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
         >
-          <X size={20} />
-        </button>
+          <motion.div
+            className="bg-white rounded-2xl shadow-xl w-[98%] max-w-5xl p-6 relative overflow-y-auto max-h-[90vh]"
+            variants={modalVariant}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 text-gray-600 hover:text-black"
+            >
+              <X size={24} />
+            </button>
 
-        <h2 className="text-2xl font-bold text-center mb-6">Construction Work</h2>
+            <motion.h2
+              className="text-2xl font-bold text-center mb-6"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              Construction Work
+            </motion.h2>
 
-        {!selectedService ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {services.map((service, idx) => (
-              <div
-                key={idx}
-                onClick={() => handleServiceClick(service.name)}
-                className="flex flex-col items-center justify-center bg-gray-100 p-6 rounded-lg hover:bg-gray-200 cursor-pointer transition"
-              >
-                <div className="mb-2 text-gray-800">{service.icon}</div>
-                <p className="text-gray-800 font-medium">{service.name}</p>
+            {!selectedService ? (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {services.map((service, idx) => (
+                  <motion.div
+                    key={idx}
+                    custom={idx}
+                    variants={itemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    onClick={() => handleServiceClick(service.name)}
+                    className="flex flex-col items-center justify-center bg-gray-100 p-6 rounded-lg cursor-pointer transition"
+                  >
+                    <div className="mb-2 text-gray-800">{service.icon}</div>
+                    <p className="text-gray-800 font-medium">{service.name}</p>
+                  </motion.div>
+                ))}
               </div>
-            ))}
-          </div>
-        ) : (
-          <>
-            {/* Banner */}
-            <div className="mb-6">
-              <img
-                src={imageMap[selectedService]}
-                alt={`${selectedService} Banner`}
-                className="rounded-lg w-full object-cover max-h-60"
-              />
-            </div>
+            ) : (
+              <>
+                <motion.div
+                  className="mb-6"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <img
+                    src={imageMap[selectedService]}
+                    alt={`${selectedService} Banner`}
+                    className="rounded-lg w-full object-cover max-h-60"
+                  />
+                </motion.div>
 
-            {/* Reusable Carousel */}
-            <ServiceCarousel />
-          </>
-        )}
-      </div>
-    </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  <ServiceCarousel />
+                </motion.div>
+              </>
+            )}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
