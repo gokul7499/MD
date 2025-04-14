@@ -16,6 +16,7 @@ import Checkout from './components/Pages/Checkout';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -63,6 +64,7 @@ function App() {
     <Router>
       <ToastContainer />
       <Nav onCartClick={() => setIsCartOpen(true)} onSettingsClick={() => setIsSettingsOpen(true)} />
+       
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop onBuy={handleBuy} />} />
