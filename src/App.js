@@ -22,6 +22,22 @@ function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [theme, setTheme] = useState('dark');
+  const [userDetails, setUserDetails] = useState({ name: "" });
+
+  // In App.js
+useEffect(() => {
+  const stored = localStorage.getItem("userDetails");
+  if (stored) {
+    try {
+      const parsed = JSON.parse(stored);
+      if (parsed?.name) {
+        setUserDetails(parsed);
+      }
+    } catch (e) {
+      console.error("Invalid localStorage userDetails");
+    }
+  }
+}, []);
 
   const handleBuy = (item) => {
     setCartItems((prevItems) => {
@@ -63,13 +79,13 @@ function App() {
   return (
     <Router>
       <ToastContainer />
-      <Nav onCartClick={() => setIsCartOpen(true)} onSettingsClick={() => setIsSettingsOpen(true)} />
+      <Nav onCartClick={() => setIsCartOpen(true)} onSettingsClick={() => setIsSettingsOpen(true)} userDetails={userDetails} />
        
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop onBuy={handleBuy} />} />
         <Route path="/checkout" element={<Checkout cartItems={cartItems} />} /> {/* Pass cartItems to Checkout */}
-        <Route path="/login" element={<LoginSignUpForm />} />
+        <Route path="/login" element={<LoginSignUpForm  setUserDetails={setUserDetails}/>} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
 

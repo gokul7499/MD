@@ -1,18 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { FaUser, FaBars, FaTimes, FaCog } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate here
+import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart } from "lucide-react";
 import CartDrawer from '../Cart/Cart';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import { useTranslation } from 'react-i18next';
 
-const Nav = ({ onCartClick, userDetails  }) => {
+const Nav = ({ userDetails: propUserDetails, onCartClick }) => {
   const [location, setLocation] = useState('delhi');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSettingsDrawerOpen, setIsSettingsDrawerOpen] = useState(false);
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
+  // Get userDetails from props or localStorage
+  const storedUser = localStorage.getItem("userDetails");
+  const parsedUser = storedUser ? JSON.parse(storedUser) : {};
+  const userDetails = propUserDetails || parsedUser;
+
+  const getUserInitial = (name) => {
+    return name ? name.trim().charAt(0).toUpperCase() : "G";
+  };
+
+  const initial = getUserInitial(userDetails?.name);
+
+  // Placeholder animation logic
   const placeholders = [
     ' Search for products',
     ' Search for brands',
@@ -25,27 +39,30 @@ const Nav = ({ onCartClick, userDetails  }) => {
     ' Search construction tools',
     ' Search plumbing services',
   ];
-  const navigate = useNavigate();
 
-  const getUserInitials = (name) => {
-    if (!name || name.trim() === "") return "G"; // For Guest
-    const nameParts = name.trim().split(" ");
-    const first = nameParts[0]?.charAt(0).toUpperCase();
-    const last = nameParts.length > 1 ? nameParts[nameParts.length - 1]?.charAt(0).toUpperCase() : "";
-    return first + last;
-  };
-  
-
-  const initials = getUserInitials(userDetails?.name);
-  
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [typing, setTyping] = useState(true);
 
   useEffect(() => {
+    const stored = localStorage.getItem("userDetails");
+    if (stored && !userDetails?.name) {
+      try {
+        const parsed = JSON.parse(stored);
+        if (parsed?.name) {
+          userDetails.name = parsed.name;
+        }
+      } catch (e) {
+        console.error("Invalid localStorage userDetails");
+      }
+    }
+  }, []);
+  
+  useEffect(() => {
     let currentText = placeholders[placeholderIndex];
     let charIndex = 0;
     setDisplayText('');
+    
     const typeInterval = setInterval(() => {
       if (charIndex < currentText.length) {
         setDisplayText((prev) => prev + currentText[charIndex]);
@@ -59,32 +76,41 @@ const Nav = ({ onCartClick, userDetails  }) => {
         }, 1000);
       }
     }, 100);
-
+  
     return () => clearInterval(typeInterval);
   }, [placeholderIndex, typing]);
-
-  const closeMobileMenu = () => setIsMobileMenuOpen(false);
-
+  
+  // Logout popup handlers
   const handleUserIconClick = () => {
-    navigate('/login');  // Use navigate to go to profile page
+    setShowLogoutPopup(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userDetails");
+    setShowLogoutPopup(false);
+    navigate("/login");
+  };
+
+  const handleCancelLogout = () => {
+    setShowLogoutPopup(false);
   };
 
   return (
     <>
-      <div className={`fixed top-0 left-0 w-full bg-white shadow-md z-50 transition-all duration-300`}>
+      <div className="fixed top-0 left-0 w-full bg-white shadow-md z-50 transition-all duration-300">
         <nav className="flex items-center justify-between px-4 py-3 md:px-8">
           <Link to="/" className="text-2xl font-bold text-gray-800">
             MD Developer
           </Link>
 
-          {/* Desktop Menu */}
+          {/* Desktop Navigation Links */}
           <div className="hidden md:flex space-x-8 text-base font-medium">
             <Link to="/" className="text-gray-600 hover:text-black">{t('home')}</Link>
             <Link to="/shop" className="text-gray-600 hover:text-black">{t('shop')}</Link>
             <Link to="/contact" className="text-gray-600 hover:text-black">{t('contact')}</Link>
           </div>
 
-          {/* Desktop Right Side */}
+          {/* Desktop Right Controls */}
           <div className="hidden md:flex items-center space-x-4">
             <select
               value={location}
@@ -107,25 +133,17 @@ const Nav = ({ onCartClick, userDetails  }) => {
               <ShoppingCart size={24} />
             </button>
 
-            <button onClick={handleUserIconClick}>  {/* Add the click handler for user icon */}
-              <FaUser className="text-xl cursor-pointer hover:text-black text-gray-700" />
-            </button>
+            <div
+              onClick={handleUserIconClick}
+              className="w-9 h-9 rounded-full bg-pink-500 text-white flex items-center justify-center text-sm font-semibold cursor-pointer"
+            >
+              {initial}
+            </div>
 
             <button onClick={() => setIsSettingsDrawerOpen(true)} className="text-xl text-gray-700 hover:text-black">
               <FaCog />
             </button>
-            <div
-        onClick={() => navigate("/login")}
-        className="w-9 h-9 rounded-full bg-pink-500 text-white flex items-center justify-center text-sm font-semibold cursor-pointer"
-      >
-        {initials || <FaUser size={14} />}
-      </div>
-
-
-            
           </div>
-
-
 
           {/* Mobile Menu Toggle */}
           <div className="md:hidden">
@@ -138,62 +156,59 @@ const Nav = ({ onCartClick, userDetails  }) => {
         {/* Mobile Menu Dropdown */}
         {isMobileMenuOpen && (
           <div className="md:hidden px-4 py-3 bg-white shadow-md flex flex-col items-center">
-            <Link
-              to="/"
-              onClick={() => {
-                closeMobileMenu();  // Close the mobile menu on click
-              }}
-              className="py-2 text-gray-600 hover:text-black"
-            >
-              {t('home')}
-            </Link>
-            <Link
-              to="/shop"
-              onClick={() => {
-                closeMobileMenu();  // Close the mobile menu on click
-              }}
-              className="py-2 text-gray-600 hover:text-black"
-            >
-              {t('shop')}
-            </Link>
-            <Link
-              to="/contact"
-              onClick={() => {
-                closeMobileMenu();  // Close the mobile menu on click
-              }}
-              className="py-2 text-gray-600 hover:text-black"
-            >
-              {t('contact')}
-            </Link>
+            {['home', 'shop', 'contact'].map((route) => (
+              <Link
+                key={route}
+                to={`/${route === 'home' ? '' : route}`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="py-2 text-gray-600 hover:text-black"
+              >
+                {t(route)}
+              </Link>
+            ))}
+
             <button
               onClick={() => {
                 setIsSettingsDrawerOpen(true);
-                closeMobileMenu();  // Close the mobile menu on click
+                setIsMobileMenuOpen(false);
               }}
               className="py-2 text-gray-600 hover:text-black flex items-center gap-2"
             >
               <FaCog /> {t('settings')}
             </button>
+
             <div className="flex space-x-4 mt-4">
-              <button
-                onClick={() => {
-                  setIsCartOpen(true);
-                  closeMobileMenu();  // Close the mobile menu on click
-                }}
-                className="text-gray-700 hover:text-black"
-              >
+              <button onClick={() => setIsCartOpen(true)} className="text-gray-700 hover:text-black">
                 <ShoppingCart size={24} />
               </button>
-              <button onClick={() => {
-                closeMobileMenu();
-                handleUserIconClick();  // Navigate to profile page on click
-              }}>
-                <FaUser className="text-xl cursor-pointer hover:text-black text-gray-700" />
+              <button onClick={handleUserIconClick}>
+                <FaUser className="text-xl text-gray-700 hover:text-black" />
               </button>
             </div>
           </div>
         )}
       </div>
+
+      {/* Logout Confirmation Popup */}
+      {showLogoutPopup && (
+        <div className="absolute top-16 right-4 bg-white shadow-xl rounded-md border p-4 w-48 z-50">
+          <p className="text-sm mb-4">Are you sure you want to logout?</p>
+          <div className="flex justify-between">
+            <button
+              onClick={handleLogout}
+              className="bg-pink-500 text-white px-3 py-1 rounded hover:bg-pink-600"
+            >
+              Logout
+            </button>
+            <button
+              onClick={handleCancelLogout}
+              className="text-gray-600 px-3 py-1 rounded hover:bg-gray-100"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Cart Drawer */}
       {isCartOpen && (

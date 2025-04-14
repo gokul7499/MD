@@ -114,11 +114,11 @@ const Home = () => {
         slidesPerView={1}
         autoplay={{ delay: 3000 }}
         pagination={{ clickable: true }}
-        className="h-[450px] md:h-[540px] w-full"
+        className="h-[500px] md:h-[600px] w-full"
       >
         <SwiperSlide>
           <img
-            src="/img/Constructionwork.png"
+            src="/img/Worker.jpg"
             alt="Slide 1"
             className="w-full h-full object-cover"
           />
