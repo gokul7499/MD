@@ -6,8 +6,7 @@ import CartDrawer from '../Cart/Cart';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import { useTranslation } from 'react-i18next';
 
-const Nav = ({ onCartClick }) => {
-  const navigate = useNavigate(); // Initialize the navigate hook here
+const Nav = ({ onCartClick, userDetails  }) => {
   const [location, setLocation] = useState('delhi');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -26,7 +25,19 @@ const Nav = ({ onCartClick }) => {
     ' Search construction tools',
     ' Search plumbing services',
   ];
+  const navigate = useNavigate();
 
+  const getUserInitials = (name) => {
+    if (!name || name.trim() === "") return "G"; // For Guest
+    const nameParts = name.trim().split(" ");
+    const first = nameParts[0]?.charAt(0).toUpperCase();
+    const last = nameParts.length > 1 ? nameParts[nameParts.length - 1]?.charAt(0).toUpperCase() : "";
+    return first + last;
+  };
+  
+
+  const initials = getUserInitials(userDetails?.name);
+  
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [typing, setTyping] = useState(true);
@@ -103,8 +114,18 @@ const Nav = ({ onCartClick }) => {
             <button onClick={() => setIsSettingsDrawerOpen(true)} className="text-xl text-gray-700 hover:text-black">
               <FaCog />
             </button>
+            <div
+        onClick={() => navigate("/login")}
+        className="w-9 h-9 rounded-full bg-pink-500 text-white flex items-center justify-center text-sm font-semibold cursor-pointer"
+      >
+        {initials || <FaUser size={14} />}
+      </div>
+
+
             
           </div>
+
+
 
           {/* Mobile Menu Toggle */}
           <div className="md:hidden">
