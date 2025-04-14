@@ -1,63 +1,49 @@
+// src/components/Profile/Profile.js
+
 import React, { useState, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Nav from "../Navbar/Nav";
 
-export default function LoginSignUpForm() {
-  const [userDetails, setUserDetails] = useState({ name: "" });
+export default function LoginSignUpForm({ setUserDetails }) {
+  const [user, setUser] = useState({ name: "" });
   const [mobile, setMobile] = useState("");
   const [whatsappUpdates, setWhatsappUpdates] = useState(false);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [otpSent, setOtpSent] = useState(false);
   const [otpError, setOtpError] = useState("");
-  const [isOtpVerified, setIsOtpVerified] = useState(false); // ✅ new state
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
 
-  const navigate = useNavigate();
   const otpRefs = useRef([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    otpRefs.current = Array(6)
-      .fill()
-      .map((_, i) => otpRefs.current[i] || React.createRef());
+    otpRefs.current = Array(6).fill().map((_, i) => otpRefs.current[i] || React.createRef());
   }, []);
-
-  const getUserInitials = (name) => {
-    if (!name) return '';
-    const nameParts = name.trim().split(' ');
-    const firstNameInitial = nameParts[0].charAt(0).toUpperCase();
-    const lastNameInitial = nameParts.length > 1 ? nameParts[nameParts.length - 1].charAt(0).toUpperCase() : '';
-    return firstNameInitial + lastNameInitial;
-  };
 
   const sendOtp = async () => {
     try {
-      const waitingToastId = toast.info("Sending OTP...", { autoClose: false });
+      const toastId = toast.info("Sending OTP...", { autoClose: false });
 
       const response = await fetch(
         "https://gxppcdmn7h.execute-api.ap-south-1.amazonaws.com/authgw/sendotp",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            phoneNumber: mobile,
-            groupId: 1703228300417,
-          }),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phoneNumber: mobile, groupId: 1703228300417 }),
         }
       );
 
-      toast.dismiss(waitingToastId);
+      toast.dismiss(toastId);
 
       if (response.ok) {
         setOtpSent(true);
-        toast.success("OTP sent successfully!", { autoClose: 2000 });
+        toast.success("OTP sent!");
       } else {
-        toast.error("Failed to send OTP. Please try again later.");
+        toast.error("Failed to send OTP.");
       }
     } catch (error) {
-      console.error("Error sending OTP:", error);
-      toast.error("Failed to send OTP. Please try again later.");
+      toast.error("Error sending OTP.");
     }
   };
 
@@ -67,93 +53,84 @@ export default function LoginSignUpForm() {
         "https://4r4iwhot12.execute-api.ap-south-1.amazonaws.com/auth/auth/validateOtp",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            phoneNumber: mobile,
-            otp: parseInt(otp.join(""), 10),
-          }),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phoneNumber: mobile, otp: parseInt(otp.join(""), 10) }),
         }
       );
 
       if (response.ok) {
-        toast.success("OTP validated successfully!", { autoClose: 2000 });
-        setIsOtpVerified(true); // ✅ set verified
+        toast.success("OTP validated!");
+        setIsOtpVerified(true);
+
+        localStorage.setItem("userDetails", JSON.stringify(user));
+        setUserDetails(user);
+
+        // ✅ Force refresh so App.js reloads state
         setTimeout(() => {
-          navigate("/shop");
-        }, 2000);
+          window.location.href = "/shop";
+        }, 0);
       } else {
         setOtpError("Incorrect OTP");
-        toast.error("Incorrect OTP. Please try again.");
+        toast.error("Incorrect OTP. Try again.");
       }
     } catch (error) {
-      console.error("Error validating OTP:", error);
-      toast.error("Failed to validate OTP. Please try again later.");
+      toast.error("OTP validation failed.");
     }
   };
 
   const handleProceed = () => {
-    if (!mobile) {
-      toast.error("Please enter your mobile number.");
-      return;
-    }
-    if (mobile.length !== 10) {
-      toast.error("Mobile number must be 10 digits.");
-      return;
-    }
+    if (!user.name) return toast.error("Enter your name.");
+    if (!mobile || mobile.length !== 10) return toast.error("Enter a valid mobile number.");
     sendOtp();
   };
 
-  const handleMobileChange = (e) => {
-    const value = e.target.value;
-    if (/^\d{0,10}$/.test(value)) {
-      setMobile(value);
-    }
+  const getUserInitials = (name) => {
+    if (!name) return '';
+    const parts = name.trim().split(" ");
+    return parts[0][0].toUpperCase() + (parts[1]?.[0]?.toUpperCase() || '');
   };
 
-  const handleOtpChange = (e, index) => {
-    const value = e.target.value;
-    if (!/^\d?$/.test(value)) return;
+  const handleOtpChange = (e, i) => {
+    const val = e.target.value;
+    if (!/^\d?$/.test(val)) return;
 
     const newOtp = [...otp];
-    newOtp[index] = value;
+    newOtp[i] = val;
     setOtp(newOtp);
 
-    if (value && index < otpRefs.current.length - 1) {
-      otpRefs.current[index + 1].current.focus();
+    if (val && i < otp.length - 1) {
+      otpRefs.current[i + 1].current.focus();
     }
-  };
-
-  const handleNameChange = (e) => {
-    setUserDetails({ name: e.target.value });
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-400 p-4">
       <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md">
-        {isOtpVerified && <Nav userDetails={userDetails} />} {/* ✅ only after OTP verified */}
+        {isOtpVerified && <Nav userDetails={user} />}
 
         <div className="flex flex-col items-center mb-6">
-          <div className="w-20 h-20 rounded-full bg-pink-500 text-white flex items-center justify-center text-2xl font-semibold mb-4">
-            {getUserInitials(userDetails.name)}
+          <div className="w-20 h-20 rounded-full bg-pink-500 text-white flex items-center justify-center text-2xl font-bold mb-4">
+            {getUserInitials(user.name)}
           </div>
           <input
             type="text"
-            placeholder="Enter your full name (e.g. Vaibhav Sonawane)"
-            value={userDetails.name}
-            onChange={handleNameChange}
-            className="border border-gray-300 p-2 rounded-md w-full text-center"
+            placeholder="Enter your full name"
+            value={user.name}
+            onChange={(e) => setUser({ ...user, name: e.target.value })}
+            className="border p-2 rounded-md w-full text-center"
           />
         </div>
 
-        <div className="flex items-center border border-gray-300 rounded-xl mb-4 overflow-hidden">
+        <div className="flex items-center border rounded-xl mb-4 overflow-hidden">
           <span className="px-4 bg-gray-100 text-gray-700">+91</span>
           <input
             type="tel"
             placeholder="Enter mobile number"
             value={mobile}
-            onChange={handleMobileChange}
+            onChange={(e) => {
+              const val = e.target.value;
+              if (/^\d{0,10}$/.test(val)) setMobile(val);
+            }}
             className="w-full p-3 focus:outline-none"
             maxLength="10"
           />
@@ -171,15 +148,15 @@ export default function LoginSignUpForm() {
 
         {otpSent && (
           <div className="flex mb-6 space-x-2">
-            {otp.map((digit, index) => (
+            {otp.map((digit, i) => (
               <input
-                key={index}
+                key={i}
                 type="text"
                 maxLength="1"
                 value={digit}
-                onChange={(e) => handleOtpChange(e, index)}
-                ref={otpRefs.current[index]}
-                className="w-12 h-12 text-center border border-gray-300 rounded-xl"
+                onChange={(e) => handleOtpChange(e, i)}
+                ref={otpRefs.current[i]}
+                className="w-10 h-10 text-center border rounded"
               />
             ))}
           </div>
@@ -189,10 +166,10 @@ export default function LoginSignUpForm() {
 
         <button
           onClick={otpSent ? submitOtp : handleProceed}
-          disabled={!mobile || (otpSent && otp.some(digit => digit === ""))}
+          disabled={!mobile || (otpSent && otp.some((d) => d === ""))}
           className={`w-full p-3 rounded-xl font-semibold text-white transition duration-300 ${
-            (!mobile || (otpSent && otp.some(digit => digit === ""))) 
-              ? "bg-gray-300 cursor-not-allowed" 
+            (!mobile || (otpSent && otp.some((d) => d === "")))
+              ? "bg-gray-300 cursor-not-allowed"
               : "bg-pink-500 hover:bg-pink-600"
           }`}
         >
