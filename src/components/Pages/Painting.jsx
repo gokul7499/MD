@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import { IoHome, IoWaterOutline } from 'react-icons/io5';
 import { FaTree, FaPaintRoller } from 'react-icons/fa';
-import ServiceCarousel from './ServiceCa';
+import ServiceCarousel from './ServiceCa'; // assuming this exists
 
 const imageMap = {
   Indoor: '/img/indoor.jpg',
   Outdoor: '/img/Outdoor.jpg',
-  Waterproofing: '/img/WaterP.jpg',
+  Waterproofing: '/img/waterp.jpg',
   Wallpaper: '/img/Wallpaper.jpg',
 };
 
@@ -24,9 +24,9 @@ const PaintingModal = ({ isOpen, onClose }) => {
   ];
 
   return (
-<div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-2xl shadow-lg w-[90%] max-w-5xl p-6 relative overflow-y-auto max-h-[90vh]">
-         <button
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+    <div className="bg-white rounded-2xl shadow-lg w-[98%] max-w-5xl p-6 relative overflow-y-auto max-h-[90vh]">
+     <button
           className="absolute top-4 right-4 text-gray-600 hover:text-black"
           onClick={onClose}
         >
