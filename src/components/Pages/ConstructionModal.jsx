@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { X } from "lucide-react";
-import ServiceCarousel from "./ServiceCa";
+import { FaHome, FaBuilding, FaPaintRoller, FaLightbulb } from "react-icons/fa";
+import ServiceCarousel from "./ServiceCa"; // Reuse same component
 
 const ConstructionModal = ({ isOpen, onClose }) => {
   const [selectedService, setSelectedService] = useState(null);
 
-  // Don't show modal content until the service is selected
   if (!isOpen) return null;
 
   const services = [
-    { name: "Home", icon: "🏠" }, // Home emoji
-    { name: "Building", icon: "🏗️" }, // Building emoji
-    { name: "Plaster", icon: "🖌️" }, // Plaster emoji
-    { name: "Style", icon: "💡" }, // Style emoji
+    { name: "Home", icon: <FaHome size={28} /> },
+    { name: "Building", icon: <FaBuilding size={28} /> },
+    { name: "Plaster", icon: <FaPaintRoller size={28} /> },
+    { name: "Style", icon: <FaLightbulb size={28} /> },
   ];
 
   const imageMap = {
@@ -23,13 +23,13 @@ const ConstructionModal = ({ isOpen, onClose }) => {
   };
 
   const handleServiceClick = (type) => {
-    setSelectedService(type); // Update the state only when the user clicks on a service
+    setSelectedService(type);
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-2xl shadow-lg w-[90%] max-w-5xl p-6 relative overflow-y-auto max-h-[90vh]">
-        <button
+    <div className="bg-white rounded-2xl shadow-lg w-[98%] max-w-5xl p-6 relative overflow-y-auto max-h-[90vh]">
+      <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-600 hover:text-black"
         >
@@ -43,10 +43,10 @@ const ConstructionModal = ({ isOpen, onClose }) => {
             {services.map((service, idx) => (
               <div
                 key={idx}
-                onClick={() => handleServiceClick(service.name)} // Only set selectedService on click
+                onClick={() => handleServiceClick(service.name)}
                 className="flex flex-col items-center justify-center bg-gray-100 p-6 rounded-lg hover:bg-gray-200 cursor-pointer transition"
               >
-                <div className="text-3xl mb-2 text-gray-800">{service.icon}</div>
+                <div className="mb-2 text-gray-800">{service.icon}</div>
                 <p className="text-gray-800 font-medium">{service.name}</p>
               </div>
             ))}
