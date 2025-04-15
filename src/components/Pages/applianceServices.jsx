@@ -55,7 +55,7 @@ const ApplianceRepairCarousel = () => {
 
   return (
     <motion.div
-      className="py-10 px-4 md:px-10 bg-white text-center"
+      className="py-9 px-4 md:px-12 bg-white text-center"
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
@@ -77,9 +77,18 @@ const ApplianceRepairCarousel = () => {
           spaceBetween={20}
           slidesPerView={1}
           breakpoints={{
-            640: { slidesPerView: 2 },
-            768: { slidesPerView: 3 },
-            1024: { slidesPerView: 4 },
+            640: { 
+              slidesPerView: 2,
+              spaceBetween: 20
+            },
+            768: { 
+              slidesPerView: 2,
+              spaceBetween: 30
+            },
+            1024: { 
+              slidesPerView: 3,  // Changed from 4 to 3 for desktop view
+              spaceBetween: 30
+            },
           }}
           pagination={{
             clickable: true,

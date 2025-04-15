@@ -19,6 +19,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import { useTranslation } from 'react-i18next';
 
 import ServiceCarousel from "./ServiceCarousel";
 import HomePainting from "./HomePainting";
@@ -32,30 +33,28 @@ import FlooringModal from "./FlooringModal";
 import PopWorkModal from "./PopWorkModal";
 import PaintingModal from "./Painting";
 import ConstructionModal from "./ConstructionModal";
+
 const services = [
-  { name: "Construction work", icon: <FaHammer /> },
-  { name: "Painting Work", icon: <FaPaintRoller /> },
-  { name: "Pop Work", icon: <FaRulerCombined /> },
-  { name: "Flooring Work", icon: <FaTools /> },
-  { name: "AC & Appliance", icon: <FaSnowflake /> },
-  { name: "Landscaping", icon: <FaTree /> },
-  { name: "Home Plan", icon: <FaDraftingCompass /> },
-  { name: "Furniture", icon: <FaCouch /> },
+  { name: "construction_work", icon: <FaHammer /> },
+  { name: "painting_work", icon: <FaPaintRoller /> },
+  { name: "pop_work", icon: <FaRulerCombined /> },
+  { name: "flooring_work", icon: <FaTools /> },
+  { name: "ac_appliance", icon: <FaSnowflake /> },
+  { name: "landscaping", icon: <FaTree /> },
+  { name: "home_plan", icon: <FaDraftingCompass /> },
+  { name: "furniture", icon: <FaCouch /> },
 ];
 
-
-
-
-
 const LandingModal = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   if (!isOpen) return null;
 
   const items = [
-    { name: "Construction of Garden", icon: <FaBuilding /> },
-    { name: "Terrace Garden", icon: <FaTree /> },
-    { name: "Kitchen Garden", icon: <GiPlantSeed /> },
-    { name: "Vertical Garden", icon: <GiVineLeaf /> },
-    { name: "Hydroponic Farming", icon: <GiWaterDrop /> },
+    { name: "construction_garden", icon: <FaBuilding /> },
+    { name: "terrace_garden", icon: <FaTree /> },
+    { name: "kitchen_garden", icon: <GiPlantSeed /> },
+    { name: "vertical_garden", icon: <GiVineLeaf /> },
+    { name: "hydroponic_farming", icon: <GiWaterDrop /> },
   ];
 
   return (
@@ -68,7 +67,7 @@ const LandingModal = ({ isOpen, onClose }) => {
           ×
         </button>
         <h2 className="text-xl font-semibold text-center mb-6">
-          Landscaping Work
+          {t('landscaping_work')}
         </h2>
         <div className="grid grid-cols-2 gap-4">
           {items.map((item, index) => (
@@ -77,7 +76,7 @@ const LandingModal = ({ isOpen, onClose }) => {
               className="bg-gray-100 hover:bg-blue-100 transition-all rounded-lg flex flex-col items-center justify-center p-6"
             >
               <div className="text-3xl mb-2">{item.icon}</div>
-              <p className="text-gray-800 font-medium">{item.name}</p>
+              <p className="text-gray-800 font-medium">{t(item.name)}</p>
             </div>
           ))}
         </div>
@@ -85,10 +84,7 @@ const LandingModal = ({ isOpen, onClose }) => {
     </div>
   );
 };
-// ✅ Pop Work Modal Component
 
-
-// ✅ Main Home Component
 const Home = () => {
   const [showConstructionModal, setShowConstructionModal] = useState(false);
   const [showPaintingModal, setShowPaintingModal] = useState(false);
@@ -100,14 +96,15 @@ const Home = () => {
   const [showFlooringModal, setFlooringShowModal] = useState(false);
   const [showPopModal, setShowPopModal] = useState(false);
   const handleClose = () => setHomePlanShowModal(false);
+  const { t } = useTranslation();
 
   const handleSelectPlan = (planType) => {
     console.log("Selected:", planType);
-    setHomePlanShowModal(false); // Close modal after selection
+    setHomePlanShowModal(false);
   };
+
   return (
     <div className="bg-white mt-0.6">
-      {/* Swiper Slider */}
       <Swiper
         modules={[Autoplay, Pagination]}
         spaceBetween={0}
@@ -119,30 +116,29 @@ const Home = () => {
         <SwiperSlide>
           <img
             src="/img/Worker.jpg"
-            alt="Slide 1"
+            alt={t('slide1_alt')}
             className="w-full h-full object-cover"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
             src="/img/cons.jpg"
-            alt="Slide 2"
+            alt={t('slide2_alt')}
             className="w-full h-full object-cover"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
             src="/img/plumer.jpg"
-            alt="Slide 3"
+            alt={t('slide3_alt')}
             className="w-full h-full object-cover"
           />
         </SwiperSlide>
       </Swiper>
 
-      {/* Services Section */}
       <div className="py-10 px-4 md:px-16">
         <h2 className="text-2xl font-semibold mb-6 text-gray-800">
-          Select Services
+          {t('select_services')}
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
           {services.map((service, index) => (
@@ -150,46 +146,45 @@ const Home = () => {
               key={index}
               className="bg-blue-50 hover:bg-blue-100 transition-all rounded-xl p-5 flex flex-col items-center text-center shadow-md cursor-pointer"
               onClick={() => {
-                if (service.name === "Construction work")
+                if (service.name === "construction_work")
                   setShowConstructionModal(true);
-                if (service.name === "Painting Work")
+                if (service.name === "painting_work")
                   setShowPaintingModal(true);
-                if (service.name === "Pop Work") setShowPopworkModal(true);
-                if (service.name === "Landscaping") setShowLandingModal(true);
-                if (service.name === "AC & Appliance") setACModalOpen(true);
-                if (service.name === "Furniture") setShowFurnitureModal(true);
-                if (service.name === "Home Plan") setHomePlanShowModal(true);
-                if (service.name === "Flooring Work") setFlooringShowModal(true);
-                if (service.name === "Pop Work") setShowPopModal(true);
+                if (service.name === "pop_work") setShowPopworkModal(true);
+                if (service.name === "landscaping") setShowLandingModal(true);
+                if (service.name === "ac_appliance") setACModalOpen(true);
+                if (service.name === "furniture") setShowFurnitureModal(true);
+                if (service.name === "home_plan") setHomePlanShowModal(true);
+                if (service.name === "flooring_work") setFlooringShowModal(true);
+                if (service.name === "pop_work") setShowPopModal(true);
               }}
             >
               <div className="text-blue-600 text-3xl mb-3">{service.icon}</div>
-              <p className="text-gray-800 font-medium">{service.name}</p>
+              <p className="text-gray-800 font-medium">{t(service.name)}</p>
             </div>
           ))}
         </div>
 
-        {/* Gallery Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <img
             src="/img/AC.jpg"
             className="rounded-xl object-cover w-full h-44 md:h-48"
-            alt="AC Work"
+            alt={t('ac_work_alt')}
           />
           <img
             src="/img/Plumbing.png"
             className="rounded-xl object-cover w-full h-44 md:h-48"
-            alt="Water Work"
+            alt={t('water_work_alt')}
           />
           <img
             src="/img/lawn.jpg"
             className="rounded-xl object-cover w-full h-44 md:h-48"
-            alt="Lawn"
+            alt={t('lawn_alt')}
           />
           <img
             src="/img/garden.jpg"
             className="rounded-xl object-cover w-full h-44 md:h-48"
-            alt="Garden"
+            alt={t('garden_alt')}
           />
         </div>
       </div>
@@ -199,8 +194,6 @@ const Home = () => {
       <NewAndNoteworthy />
       <VideoCarousel />
       <ApplianceRepairCarousel />
-
-      {/* Modals */}
 
       <LandingModal
         isOpen={showLandingModal}
@@ -224,20 +217,18 @@ const Home = () => {
         isOpen={showFurnitureModal}
         onClose={() => setShowFurnitureModal(false)}
       />
-      {/* <PopWorkModal  isOpen={showPopWorkModal} onClose={() => setPopWorkShowModal(false)} /> */}
       {showFlooringModal && (
         <FlooringModal
           isOpen={showFlooringModal}
           onClose={() => setFlooringShowModal(false)}
         />
       )}
-
       <ServiceModal
         isOpen={ACmodalOpen}
         onClose={() => setACModalOpen(false)}
       />
-       {showPopModal && (
-        <PopWorkModal  isOpen={showPopModal} onClose={() => setShowPopModal(false)} />
+      {showPopModal && (
+        <PopWorkModal isOpen={showPopModal} onClose={() => setShowPopModal(false)} />
       )}
     </div>
   );

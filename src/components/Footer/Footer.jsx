@@ -1,83 +1,176 @@
+// import React from 'react';
+// import {
+//   FaFacebook,
+//   FaInstagram,
+//   FaLinkedin,
+//   FaPhone,
+//   FaMapMarkerAlt,
+//   FaEnvelope,
+//   FaWhatsapp
+// } from 'react-icons/fa';
+// import { Link } from 'react-router-dom';
+// import { useTranslation } from 'react-i18next';
+
+// const Footer = () => {
+//   const { t } = useTranslation();
+
+//   return (
+//     <footer className="bg-[#1e1e1e] text-gray-300 pt-10 pb-6 px-4 md:px-8 font-sans">
+//       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center md:text-left">
+        
+//         {/* Company Info */}
+//         <div className="space-y-4 flex flex-col items-center md:items-start">
+//           <Link to="/" className="flex items-center justify-center md:justify-start">
+//             <span className="text-2xl font-bold text-white">MD Developer</span>
+//           </Link>
+//           <p className="text-gray-400 text-xs md:text-sm leading-relaxed max-w-xs">
+//             {t('footerDescription')}
+//           </p>
+//           <div className="flex space-x-4 pt-1 justify-center md:justify-start">
+//             <a href="#" className="text-white hover:text-blue-500 transition"><FaFacebook size={18} /></a>
+//             <a href="#" className="text-white hover:text-pink-500 transition"><FaInstagram size={18} /></a>
+//             <a href="#" className="text-white hover:text-green-500 transition"><FaWhatsapp size={18} /></a>
+//           </div>
+//         </div>
+
+//         {/* Quick Links */}
+//         <div className="space-y-4 flex flex-col items-center md:items-start">
+//           <h3 className="text-lg font-semibold text-white">{t('quickLinks')}</h3>
+//           <ul className="space-y-2">
+//             <li>
+//               <Link to="/" className="text-white text-sm flex items-center justify-center md:justify-start hover:text-blue-400 transition">
+//                 <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>{t('home')}
+//               </Link>
+//             </li>
+//             <li>
+//               <Link to="/shop" className="text-white text-sm flex items-center justify-center md:justify-start hover:text-blue-400 transition">
+//                 <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>{t('shop')}
+//               </Link>
+//             </li>
+//             <li>
+//               <Link to="/contact" className="text-white text-sm flex items-center justify-center md:justify-start hover:text-blue-400 transition">
+//                 <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>{t('contacts')}
+//               </Link>
+//             </li>
+//           </ul>
+//         </div>
+
+//         {/* Services */}
+//         <div className="space-y-4 flex flex-col items-center md:items-start">
+//           <h3 className="text-lg font-semibold text-white">{t('ourServices')}</h3>
+//           <ul className="space-y-2">
+//             {['Residential', 'Commercial', 'Interiors', 'Renovation'].map((service) => (
+//               <li key={service} className="text-white text-sm flex items-center justify-center md:justify-start hover:text-blue-400 transition">
+//                 <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
+//                 {t(service.toLowerCase())}
+//               </li>
+//             ))}
+//           </ul>
+//         </div>
+
+//         {/* Contact Info */}
+//         <div className="space-y-4 flex flex-col items-center md:items-start">
+//           <h3 className="text-lg font-semibold text-white">{t('contactUs')}</h3>
+//           <ul className="space-y-2 text-sm text-gray-400">
+//             <li className="flex items-center justify-center md:justify-start"><FaMapMarkerAlt className="mr-2" />123 Developer Lane, Pune, India</li>
+//             <li className="flex items-center justify-center md:justify-start"><FaPhone className="mr-2" />+91 98765 43210</li>
+//             <li className="flex items-center justify-center md:justify-start"><FaEnvelope className="mr-2" />info@mddeveloper.com</li>
+//           </ul>
+//         </div>
+//       </div>
+
+//       <div className="mt-8 text-center text-xs text-gray-500">
+//         © {new Date().getFullYear()} MD Developer. All rights reserved.
+//       </div>
+//     </footer>
+//   );
+// };
+
+// export default Footer;
+
+
 import React from 'react';
-import { FaLinkedin, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaWhatsapp } from 'react-icons/fa';
+import {
+  FaFacebook,
+  FaInstagram,
+  FaWhatsapp,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaEnvelope
+} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
-  return (
-    <footer className="bg-gray-900 text-white pt-10 pb-6 px-4 md:px-10">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 border-b border-gray-700 pb-8">
+  const { t } = useTranslation();
 
-        {/* About */}
-        <div>
-          <h4 className="text-xl font-semibold mb-4 text-green-400">About Me</h4>
-          <p className="text-gray-300 text-sm leading-6">
-            I'm a full-stack MERN developer with a passion for crafting user-friendly and scalable web applications. Dedicated to delivering quality digital experiences.
+  return (
+    <footer className="bg-[#1e1e1e] text-gray-300 pt-10 pb-6 px-4 md:px-8 font-sans">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center md:text-left">
+        
+        {/* Company Info */}
+        <div className="space-y-4 flex flex-col items-center md:items-start">
+          <Link to="/" className="flex items-center justify-center md:justify-start">
+            <span className="text-2xl font-bold text-white">MD Developer</span>
+          </Link>
+          <p className="text-gray-400 text-xs md:text-sm leading-relaxed max-w-xs">
+            {t('footerDescription')}
           </p>
+          <div className="flex space-x-4 pt-1 justify-center md:justify-start">
+            <a href="#" className="text-white hover:text-blue-500 transition"><FaFacebook size={18} /></a>
+            <a href="#" className="text-white hover:text-pink-500 transition"><FaInstagram size={18} /></a>
+            <a href="#" className="text-white hover:text-green-500 transition"><FaWhatsapp size={18} /></a>
+          </div>
         </div>
 
         {/* Quick Links */}
-        <div>
-          <h4 className="text-xl font-semibold mb-4 text-green-400">Quick Links</h4>
-          <ul className="space-y-2 text-sm">
-            <li><Link to="/" className="hover:text-green-400 transition">Home</Link></li>
-            <li><Link to="/projects" className="hover:text-green-400 transition">Projects</Link></li>
-            <li><Link to="/about" className="hover:text-green-400 transition">About</Link></li>
-            <li><Link to="/contact" className="hover:text-green-400 transition">Contact</Link></li>
+        <div className="space-y-4 flex flex-col items-center md:items-start">
+          <h3 className="text-lg font-semibold text-white">{t('quickLinks')}</h3>
+          <ul className="space-y-2">
+            <li>
+              <Link to="/" className="text-white text-sm flex items-center justify-center md:justify-start hover:text-blue-400 transition">
+                <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>{t('home')}
+              </Link>
+            </li>
+            <li>
+              <Link to="/shop" className="text-white text-sm flex items-center justify-center md:justify-start hover:text-blue-400 transition">
+                <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>{t('shop')}
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="text-white text-sm flex items-center justify-center md:justify-start hover:text-blue-400 transition">
+                <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>{t('contacts')}
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Services */}
+        <div className="space-y-4 flex flex-col items-center md:items-start">
+          <h3 className="text-lg font-semibold text-white">{t('ourServices')}</h3>
+          <ul className="space-y-2">
+            {['Residential', 'Commercial', 'Interiors', 'Renovation'].map((service) => (
+              <li key={service} className="text-white text-sm flex items-center justify-center md:justify-start hover:text-blue-400 transition">
+                <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
+                {t(service.toLowerCase())}
+              </li>
+            ))}
           </ul>
         </div>
 
         {/* Contact Info */}
-        <div>
-          <h4 className="text-xl font-semibold mb-4 text-green-400">Contact</h4>
-          <ul className="text-sm space-y-2">
-            <li className="flex items-center gap-2">
-              <FaEnvelope className="text-green-500" /> your.email@example.com
-            </li>
-            <li className="flex items-center gap-2">
-              <FaPhoneAlt className="text-green-500" /> +91 98765 43210
-            </li>
-            <li className="flex items-center gap-2">
-              <FaMapMarkerAlt className="text-green-500" /> Pune, India
-            </li>
+        <div className="space-y-4 flex flex-col items-center md:items-start">
+          <h3 className="text-lg font-semibold text-white">{t('contactUs')}</h3>
+          <ul className="space-y-2 text-sm text-gray-400">
+            <li className="flex items-center justify-center md:justify-start"><FaMapMarkerAlt className="mr-2" />123 Developer Lane, Pune, India</li>
+            <li className="flex items-center justify-center md:justify-start"><FaPhone className="mr-2" />+91 98765 43210</li>
+            <li className="flex items-center justify-center md:justify-start"><FaEnvelope className="mr-2" />info@mddeveloper.com</li>
           </ul>
-        </div>
-
-        {/* Social Media */}
-        <div>
-          <h4 className="text-xl font-semibold mb-4 text-green-400">Connect</h4>
-          <div className="flex space-x-4 text-xl">
-            <a
-              href="https://wa.me/919876543210"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-green-500 transition"
-              title="Chat on WhatsApp"
-            >
-              <FaWhatsapp />
-            </a>
-            <a
-              href="https://linkedin.com/in/yourprofile"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-green-500 transition"
-              title="LinkedIn Profile"
-            >
-              <FaLinkedin />
-            </a>
-            <a
-              href="mailto:your.email@example.com"
-              className="hover:text-green-500 transition"
-              title="Send Email"
-            >
-              <FaEnvelope />
-            </a>
-          </div>
         </div>
       </div>
 
-      {/* Footer bottom */}
-      <div className="text-center text-sm text-gray-400 mt-6">
-        © {new Date().getFullYear()} Vaibhav Sonawane. All Rights Reserved.
+      <div className="mt-8 text-center text-xs text-gray-500">
+        © {new Date().getFullYear()} MD Developer. All rights reserved.
       </div>
     </footer>
   );
