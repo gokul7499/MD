@@ -1,0 +1,35 @@
+.scroll-buttons-container {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .scroll-circle-wrapper {
+    text-decoration: none;
+  }
+  
+  .scroll-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: conic-gradient(#25D366 0%, #e0e0e0 0% 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .scroll-circle.call {
+    background: #2196F3;
+  }
+  
+  .icon {
+    color: white;
+    font-size: 14px;
+  }
+  

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaUser, FaBars, FaTimes, FaCog } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ShoppingCart } from "lucide-react";
 import CartDrawer from '../Cart/Cart';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
@@ -14,6 +14,7 @@ const Nav = ({ userDetails: propUserDetails, onCartClick }) => {
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const currentPath = useLocation().pathname;
 
   // Get userDetails from props or localStorage
   const storedUser = localStorage.getItem("userDetails");
@@ -80,6 +81,41 @@ const Nav = ({ userDetails: propUserDetails, onCartClick }) => {
     return () => clearInterval(typeInterval);
   }, [placeholderIndex, typing]);
   
+  // Scroll to top when Home is clicked while already on home page
+  const handleHomeClick = (e) => {
+    if (currentPath === '/') {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const handleShopClick = (e) => {
+    if (currentPath === '/shop') {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const handleContactClick = (e) => {
+    if (currentPath === '/contact') {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  
+
+
+
   // Logout popup handlers
   const handleUserIconClick = () => {
     setShowLogoutPopup(true);
@@ -98,16 +134,26 @@ const Nav = ({ userDetails: propUserDetails, onCartClick }) => {
   return (
     <>
       <div className="fixed top-0 left-0 w-full bg-white shadow-md z-50 transition-all duration-300">
-        <nav className="flex items-center justify-between px-4 py-3 md:px-8">
-          <Link to="/" className="text-2xl font-bold text-gray-800">
+        <nav className="flex items-center justify-between px-4 py-3 md:px-8 ml-5">
+          <Link 
+            to="/" 
+            className="text-2xl font-bold text-gray-800 ml-3"
+            onClick={handleHomeClick}
+          >
             MD Developer
           </Link>
 
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex space-x-8 text-base font-medium">
-            <Link to="/" className="text-gray-600 hover:text-black">{t('home')}</Link>
-            <Link to="/shop" className="text-gray-600 hover:text-black">{t('shop')}</Link>
-            <Link to="/contact" className="text-gray-600 hover:text-black">{t('contact')}</Link>
+            <Link 
+              to="/" 
+              className="text-gray-600 hover:text-black"
+              onClick={handleHomeClick}
+            >
+              {t('home')}
+            </Link>
+            <Link onClick={handleShopClick} to="/shop" className="text-gray-600 hover:text-black">{t('shop')}</Link>
+            <Link onClick={handleContactClick} to="/contact" className="text-gray-600 hover:text-black">{t('contacts')}</Link>
           </div>
 
           {/* Desktop Right Controls */}
@@ -160,7 +206,16 @@ const Nav = ({ userDetails: propUserDetails, onCartClick }) => {
               <Link
                 key={route}
                 to={`/${route === 'home' ? '' : route}`}
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(e) => {
+                  if (route === 'home' && currentPath === '/') {
+                    e.preventDefault();
+                    window.scrollTo({
+                      top: 0,
+                      behavior: 'smooth'
+                    });
+                  }
+                  setIsMobileMenuOpen(false);
+                }}
                 className="py-2 text-gray-600 hover:text-black"
               >
                 {t(route)}
@@ -184,6 +239,12 @@ const Nav = ({ userDetails: propUserDetails, onCartClick }) => {
               <button onClick={handleUserIconClick}>
                 <FaUser className="text-xl text-gray-700 hover:text-black" />
               </button>
+              <div
+                onClick={handleUserIconClick}
+                className="w-9 h-9 rounded-full bg-pink-500 text-white flex items-center justify-center text-sm font-semibold cursor-pointer"
+              >
+                {initial}
+              </div>
             </div>
           </div>
         )}
