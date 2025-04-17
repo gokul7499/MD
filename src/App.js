@@ -130,6 +130,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ScrollToTop from './components/Pages/ScrollToTop';
 import ScrollCircle from './components/Pages/ScrollCircle';
 import Orders from './components/Orders/Orders';
+import About from './components/Pages/Aboutus';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -204,6 +205,7 @@ function App() {
         <Route path="/login" element={<LoginSignUpForm setUserDetails={setUserDetails} />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/orders"  element={<Orders />} />
+        <Route path="/about"  element={<About />} />
 
       </Routes>
 
