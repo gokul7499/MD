@@ -27,7 +27,7 @@ const Nav = ({ userDetails: propUserDetails }) => {
   const userDetails = propUserDetails || parsedUser;
 
   const getUserInitial = (name) => {
-    return name ? name.trim().charAt(0).toUpperCase() : "G";
+    return name ?  name.trim().charAt(0).toUpperCase() : "G";
   };
 
   const initial = getUserInitial(userDetails?.name);
