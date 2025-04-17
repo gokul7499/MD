@@ -131,6 +131,7 @@ import ScrollToTop from './components/Pages/ScrollToTop';
 import ScrollCircle from './components/Pages/ScrollCircle';
 import Orders from './components/Orders/Orders';
 import About from './components/Pages/Aboutus';
+import CustomCursor from './components/Pages/CustomCursor';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -194,6 +195,7 @@ function App() {
     <OrderProvider>
 
     <Router>
+      <CustomCursor/>
       <ScrollToTop />
       <ToastContainer />
       <Nav onCartClick={() => setIsCartOpen(true)} onSettingsClick={() => setIsSettingsOpen(true)} userDetails={userDetails} />
