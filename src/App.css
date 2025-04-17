@@ -1,0 +1,24 @@
+
+
+  /* App.css */
+
+body.theme-dark {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  
+  body.theme-light {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  body.theme-blue {
+    background-color: #0d1b2a;
+    color: #ffffff;
+  }
+  
+  /* Optional - Make sure other elements use body colors */
+  a, p, span, div, h1, h2, h3, h4, h5, h6 {
+    transition: color 0.3s, background-color 0.3s;
+  }
+  
