@@ -93,13 +93,12 @@
 // export default CartDrawer;
 
 
-
 import React from 'react';
 import { X, Trash2, ShoppingCart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-const CartDrawer = ({ isOpen, onClose, cartItems, onRemove, onBuySingle }) => {
+const CartDrawer = ({ isOpen, onClose, cartItems = [], onRemove, onBuySingle }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -189,4 +188,3 @@ const CartDrawer = ({ isOpen, onClose, cartItems, onRemove, onBuySingle }) => {
 };
 
 export default CartDrawer;
-
