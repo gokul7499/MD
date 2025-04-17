@@ -95,6 +95,16 @@ const Nav = ({ userDetails: propUserDetails, onCartClick }) => {
     }
   };
 
+  const handleAboutClick = (e) => {
+    if (currentPath === '/about') {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   const handleShopClick = (e) => {
     if (currentPath === '/shop') {
       e.preventDefault();
@@ -157,6 +167,8 @@ const Nav = ({ userDetails: propUserDetails, onCartClick }) => {
             </Link>
             <Link onClick={handleShopClick} to="/shop" className="text-gray-600 hover:text-black">{t('shop')}</Link>
             <Link onClick={handleContactClick} to="/contact" className="text-gray-600 hover:text-black">{t('contacts')}</Link>
+            {/* <Link onClick={handleAboutClick} to="/about" className="text-gray-600 hover:text-black">{t('about')}</Link> */}
+
           </div>
 
           {/* Desktop Right Controls */}
