@@ -114,6 +114,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import './i18n';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { OrderProvider } from './components/context/OrderContext';  // Make sure this path is correct
 
 import Nav from './components/Navbar/Nav';
 import Home from './components/Pages/Home';
@@ -128,6 +129,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ScrollToTop from './components/Pages/ScrollToTop';
 import ScrollCircle from './components/Pages/ScrollCircle';
+import Orders from './components/Orders/Orders';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -188,6 +190,8 @@ function App() {
   }, [theme]);
 
   return (
+    <OrderProvider>
+
     <Router>
       <ScrollToTop />
       <ToastContainer />
@@ -199,6 +203,8 @@ function App() {
         <Route path="/checkout" element={<Checkout cartItems={cartItems} />} />
         <Route path="/login" element={<LoginSignUpForm setUserDetails={setUserDetails} />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/orders"  element={<Orders />} />
+
       </Routes>
 
       <CartDrawer
@@ -219,6 +225,8 @@ function App() {
       <ScrollCircle /> {/* ✅ Scroll Indicator */}
       <Footer />
     </Router>
+    </OrderProvider>
+
   );
 }
 
