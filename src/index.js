@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './i18n'; // 👈 i18n must be initialized
+import { ThemeProvider } from "./ThemeContext"; // ✅ Import the ThemeProvider
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider> {/* Wrap the App with the ThemeProvider */}
+      <App />
+    </ThemeProvider>
   </React.StrictMode>
 );
 

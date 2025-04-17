@@ -8,7 +8,7 @@ import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import { useTranslation } from 'react-i18next';
 import { useOrders } from '../context/OrderContext';
 
-const Nav = ({ userDetails: propUserDetails }) => {
+const Nav = ({ userDetails: propUserDetails ,onSettingsClick}) => {
   const [location, setLocation] = useState('delhi');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);

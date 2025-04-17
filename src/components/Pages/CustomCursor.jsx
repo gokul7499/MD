@@ -7,6 +7,7 @@ const CustomCursor = () => {
     const updatePosition = (e) => {
       setPosition({ x: e.clientX, y: e.clientY });
     };
+
     window.addEventListener('mousemove', updatePosition);
     return () => {
       window.removeEventListener('mousemove', updatePosition);
@@ -16,26 +17,35 @@ const CustomCursor = () => {
   return (
     <>
       {/* Hide default cursor globally */}
-      <style>{`* { cursor: none !important; }`}</style>
+      <style>
+        {`
+          * {
+            cursor: none !important;
+          }
+          button, a {
+            cursor: none !important;
+          }
+        `}
+      </style>
 
-      {/* Cursor Image */}
+      {/* Custom Cursor Image */}
       <div
         className="fixed top-0 left-0 z-[9999] pointer-events-none"
         style={{
-          transform: `translate(${position.x - 30}px, ${position.y - 30}px)`,
+          transform: `translate(${position.x - 25}px, ${position.y - 25}px)`,
           transition: 'transform 0.05s linear',
         }}
       >
         <img
-          src="/img/cursor.png" // Make sure path is correct
-          alt="Custom Cursor"
+          src="/img/cursor.png" // ✅ Replace with correct image path
+          alt="Cursor"
           className="w-[35px] h-[35px] select-none"
           draggable={false}
         />
-
-        {/* Moving Dot Inside */}
+        
+        {/* Optional Animated Dot Inside (remove if not needed) */}
         <div
-          className="absolute top-[50%] left-[50%] w-[8px] h-[8px] rounded-full bg-white animate-ping"
+          className="absolute top-1/2 left-1/2 w-[8px] h-[8px] bg-white rounded-full animate-pulse"
           style={{
             transform: 'translate(-50%, -50%)',
           }}
