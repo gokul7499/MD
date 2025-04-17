@@ -482,9 +482,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useOrders } from '../../components/context/OrderContext';
+import { useNavigate } from 'react-router-dom';
 
 const Checkout = ({ cartItems }) => {
+  const navigate = useNavigate();
+
   const { t } = useTranslation();
+  const { addOrder } = useOrders();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [location, setLocation] = useState('');
@@ -578,9 +583,37 @@ const Checkout = ({ cartItems }) => {
       alert(t('invalid_card_alert'));
       return;
     }
+
+    // Create order object
+    const order = {
+      id: Date.now(),
+      date: new Date().toISOString(),
+      items: [...cartItems],
+      total: cartItems.reduce((total, item) => total + item.quantity * item.price, 0),
+      shippingInfo: {
+        name,
+        phone,
+        location,
+        pinCode,
+        district,
+        city,
+        email,
+        deliveryInstructions
+      },
+      paymentMethod: selectedPaymentMethod === 'cod' ? t('cod') : t('card_payment'),
+      status: 'Processing'
+    };
+
+    // Add to order context
+    addOrder(order);
+
+    // Show success message
     alert(t('order_success_alert', { 
       method: selectedPaymentMethod === 'cod' ? t('cod') : t('card_payment') 
     }));
+
+    // Redirect to orders page
+    navigate('/orders');
   };
 
   return (
@@ -903,17 +936,18 @@ const Checkout = ({ cartItems }) => {
                   {t('back')}
                 </button>
                 <button
-                  type="button"
-                  onClick={handlePlaceOrder}
-                  disabled={!selectedPaymentMethod || (selectedPaymentMethod === 'card' && !validateCardDetails())}
-                  className={`flex-1 py-3 px-6 rounded-md font-medium text-white transition-colors ${
-                    selectedPaymentMethod && (selectedPaymentMethod !== 'card' || validateCardDetails())
-                      ? 'bg-green-600 hover:bg-green-700'
-                      : 'bg-gray-400 cursor-not-allowed'
-                  }`}
-                >
-                  {t('place_order')}
-                </button>
+      type="button"
+      onClick={handlePlaceOrder}
+      disabled={!selectedPaymentMethod || (selectedPaymentMethod === 'card' && !validateCardDetails())}
+      className={`flex-1 py-3 px-6 rounded-md font-medium text-white transition-colors ${
+        selectedPaymentMethod && (selectedPaymentMethod !== 'card' || validateCardDetails())
+          ? 'bg-green-600 hover:bg-green-700'
+          : 'bg-gray-400 cursor-not-allowed'
+      }`}
+    >
+      {t('place_order')}
+    </button>
+
               </div>
             </div>
           )}

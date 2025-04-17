@@ -9,7 +9,7 @@
 //   GYPSUM: '/img/gyp.jpg',
 // };
 
-// const PopWorkModal = ({ onClose }) => {
+// const PopWorkModal = ({ onClose }) => {r
 //   const [selectedService, setSelectedService] = useState(null);
 
 //   // Prevent background scroll when the modal is open
@@ -29,9 +29,7 @@
 //       className="fixed inset-0 backdrop-blur-md bg-black/40 flex items-center justify-center z-50"
 //       initial={{ opacity: 0 }}
 //       animate={{ opacity: 1 }}
-//       exit={{ opacity: 0 }}
-//       transition={{ duration: 0.3 }}
-//     >
+//       exit={{ opacity: 0 }} 
 //       <motion.div
 //         className="bg-white rounded-2xl shadow-lg w-[98%] max-w-5xl p-6 relative overflow-y-auto max-h-[90vh]"
 //         initial={{ y: '-100vh' }}
@@ -107,17 +105,10 @@
 // export default PopWorkModal;
 
 
-
-
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import { X, Home, TreePine, Droplet } from 'lucide-react';
 import { motion } from 'framer-motion';
-import ServiceCarousel from './ServiceCa'; // Make sure this file exists
+import ServiceCarousel from './ServiceCa'; 
 import { useTranslation } from 'react-i18next';
 
 const imageMap = {
@@ -130,11 +121,10 @@ const PopWorkModal = ({ onClose }) => {
   const { t } = useTranslation();
   const [selectedService, setSelectedService] = useState(null);
 
-  // Prevent background scroll when the modal is open
   useEffect(() => {
-    document.body.style.overflow = 'hidden'; // Prevent scroll
+    document.body.style.overflow = 'hidden'; 
     return () => {
-      document.body.style.overflow = 'auto'; // Re-enable scroll when modal is closed
+      document.body.style.overflow = 'auto'; 
     };
   }, []);
 
@@ -191,10 +181,9 @@ const PopWorkModal = ({ onClose }) => {
               <Droplet size={36} className="mb-2 text-gray-800" />
               <p className="text-gray-800 font-medium">{t('popWork.gypsum')}</p>
             </motion.div>
-          </div>
+          </div> 
         ) : (
           <div>
-            {/* Blurred Image with overlay */}
             <motion.div
               className="mb-6 relative rounded-lg overflow-hidden"
               initial={{ opacity: 0 }}
@@ -204,7 +193,7 @@ const PopWorkModal = ({ onClose }) => {
               <img
                 src={imageMap[selectedService]}
                 alt={`${selectedService} Banner`}
-                className="w-full h-60 object-cover filter blur-sm" // 👈 blur effect
+                className="w-full h-60 object-cover filter blur-sm" 
               />
 
               {/* Overlay */}
@@ -213,7 +202,6 @@ const PopWorkModal = ({ onClose }) => {
               </div>
             </motion.div>
 
-            {/* Carousel Component */}
             <ServiceCarousel />
           </div>
         )}

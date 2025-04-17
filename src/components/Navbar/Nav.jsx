@@ -5,6 +5,7 @@ import { ShoppingCart } from "lucide-react";
 import CartDrawer from '../Cart/Cart';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import { useTranslation } from 'react-i18next';
+import { useOrders } from '../context/OrderContext';
 
 const Nav = ({ userDetails: propUserDetails, onCartClick }) => {
   const [location, setLocation] = useState('delhi');
@@ -15,6 +16,8 @@ const Nav = ({ userDetails: propUserDetails, onCartClick }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const currentPath = useLocation().pathname;
+  const { orderCount } = useOrders();
+
 
   // Get userDetails from props or localStorage
   const storedUser = localStorage.getItem("userDetails");
@@ -189,6 +192,16 @@ const Nav = ({ userDetails: propUserDetails, onCartClick }) => {
             <button onClick={() => setIsSettingsDrawerOpen(true)} className="text-xl text-gray-700 hover:text-black">
               <FaCog />
             </button>
+            <Link to="/orders" className="relative p-2 text-gray-700 hover:text-blue-600">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              {orderCount > 0 && (
+                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full">
+                  {orderCount}
+                </span>
+              )}
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
