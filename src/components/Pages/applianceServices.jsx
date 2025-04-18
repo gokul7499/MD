@@ -71,24 +71,15 @@ const ApplianceRepairCarousel = () => {
         AC & Appliance Repair
       </motion.h2>
 
-      <div className="relative">
+      <div className="relative h-full">
         <Swiper
           modules={[Navigation, Pagination]}
           spaceBetween={20}
           slidesPerView={1}
           breakpoints={{
-            640: { 
-              slidesPerView: 2,
-              spaceBetween: 20
-            },
-            768: { 
-              slidesPerView: 2,
-              spaceBetween: 30
-            },
-            1024: { 
-              slidesPerView: 3,  // Changed from 4 to 3 for desktop view
-              spaceBetween: 30
-            },
+            640: { slidesPerView: 2, spaceBetween: 20 },
+            768: { slidesPerView: 2, spaceBetween: 30 },
+            1024: { slidesPerView: 3, spaceBetween: 30 },
           }}
           pagination={{
             clickable: true,
@@ -108,7 +99,7 @@ const ApplianceRepairCarousel = () => {
               >
                 <img
                   src={item.image}
-                  alt={item.title || 'Service Image'}
+                  alt={item.title}
                   className="h-52 w-full object-cover hover:scale-105 transition-transform duration-300"
                 />
                 <div className="py-4 px-2 text-center">
@@ -125,7 +116,7 @@ const ApplianceRepairCarousel = () => {
         <button
           ref={prevRef}
           aria-label="Previous Slide"
-          className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2 hover:bg-gray-100 transition"
+          className="hidden sm:flex items-center justify-center absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2 hover:bg-gray-100 transition"
         >
           <ChevronLeft />
         </button>
@@ -134,7 +125,7 @@ const ApplianceRepairCarousel = () => {
         <button
           ref={nextRef}
           aria-label="Next Slide"
-          className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2 hover:bg-gray-100 transition"
+          className="hidden sm:flex items-center justify-center absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2 hover:bg-gray-100 transition"
         >
           <ChevronRight />
         </button>

@@ -19,19 +19,14 @@ import ScrollToTop from './components/Pages/ScrollToTop';
 import ScrollCircle from './components/Pages/ScrollCircle';
 import Orders from './components/Orders/Orders';
 import About from './components/Pages/Aboutus';
-import CustomCursor from './components/Pages/CustomCursor';
 
-import { useTheme } from './ThemeContext'; // ✅ Theme context hook
 
 function App() {
-  const { theme } = useTheme(); // ✅ Get theme from context
-
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [userDetails, setUserDetails] = useState({ name: "" });
 
-  // Load user details from localStorage
   useEffect(() => {
     const stored = localStorage.getItem("userDetails");
     if (stored) {
@@ -70,7 +65,6 @@ function App() {
 
   const handleCartClose = () => setIsCartOpen(false);
 
-  // Close cart drawer when pressing Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') handleCartClose();
@@ -82,9 +76,9 @@ function App() {
   return (
     <OrderProvider>
       <Router>
-        <CustomCursor />
+      
         <ScrollToTop />
-        <ToastContainer 
+        <ToastContainer
           position="bottom-right"
           autoClose={3000}
           hideProgressBar={false}
@@ -94,24 +88,22 @@ function App() {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme={theme === 'light' ? 'light' : 'dark'}
         />
 
-        <Nav 
-          onCartClick={() => setIsCartOpen(true)} 
-          onSettingsClick={() => setIsSettingsOpen(true)} 
-          userDetails={userDetails} 
-          theme={theme}
+        <Nav
+          onCartClick={() => setIsCartOpen(true)}
+          onSettingsClick={() => setIsSettingsOpen(true)}
+          userDetails={userDetails}
         />
 
         <Routes>
-          <Route path="/" element={<Home theme={theme} />} />
-          <Route path="/shop" element={<Shop onBuy={handleBuy} theme={theme} />} />
-          <Route path="/checkout" element={<Checkout cartItems={cartItems} theme={theme} />} />
-          <Route path="/login" element={<LoginSignUpForm setUserDetails={setUserDetails} theme={theme} />} />
-          <Route path="/contact" element={<Contact theme={theme} />} />
-          <Route path="/orders" element={<Orders theme={theme} />} />
-          <Route path="/about" element={<About theme={theme} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop onBuy={handleBuy} />} />
+          <Route path="/checkout" element={<Checkout cartItems={cartItems} />} />
+          <Route path="/login" element={<LoginSignUpForm setUserDetails={setUserDetails} />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/about" element={<About />} />
         </Routes>
 
         <CartDrawer
@@ -120,21 +112,18 @@ function App() {
           cartItems={cartItems}
           onRemove={handleRemove}
           onBuySingle={handleBuySingle}
-          theme={theme}
         />
 
         <SettingsDrawer
           isOpen={isSettingsOpen}
           onClose={() => setIsSettingsOpen(false)}
-          theme={theme}
-          setTheme={() => {}} // optional, as theme is now managed by context
         />
 
         <ScrollCircle />
-        <Footer theme={theme} />
+        <Footer />
       </Router>
     </OrderProvider>
   );
 }
-
+ 
 export default App;

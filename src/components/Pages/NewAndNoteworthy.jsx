@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -13,7 +14,6 @@ const data = [
   { title: 'Roofing Solutions', img: '/img/styleimg.png' },
   { title: 'Flooring Services', img: '/img/flooringse.png' },
   { title: 'Swimming Pools', img: '/img/containers.png' },
-
 ];
 
 const NewAndNoteworthy = () => {
@@ -42,7 +42,6 @@ const NewAndNoteworthy = () => {
           modules={[Navigation, Pagination, Autoplay]}
           spaceBetween={20}
           slidesPerView={1}
-          centeredSlides={false}
           loop={true}
           autoplay={{
             delay: 3000,
@@ -50,18 +49,9 @@ const NewAndNoteworthy = () => {
             pauseOnMouseEnter: true,
           }}
           breakpoints={{
-            640: { 
-              slidesPerView: 2,
-              spaceBetween: 20
-            },
-            768: { 
-              slidesPerView: 2,
-              spaceBetween: 30
-            },
-            1024: { 
-              slidesPerView: 3,
-              spaceBetween: 30
-            },
+            640: { slidesPerView: 2, spaceBetween: 20 },
+            768: { slidesPerView: 2, spaceBetween: 30 },
+            1024: { slidesPerView: 3, spaceBetween: 30 },
           }}
           navigation={{
             prevEl: prevRef.current,
@@ -70,9 +60,8 @@ const NewAndNoteworthy = () => {
           pagination={{
             clickable: true,
             dynamicBullets: true,
-            renderBullet: (index, className) => {
-              return `<span class="${className} !bg-gray-400 !w-2 !h-2 !mx-1"></span>`;
-            }
+            renderBullet: (index, className) =>
+              `<span class="${className} !bg-gray-400 !w-2 !h-2 !mx-1 rounded-full"></span>`,
           }}
           className="pb-12"
         >
@@ -95,21 +84,22 @@ const NewAndNoteworthy = () => {
           ))}
         </Swiper>
 
-        {/* Custom Navigation Buttons */}
+        {/* Custom Prev Button */}
         <button
           ref={prevRef}
-          className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2 hover:bg-gray-100 transition"
+          className="hidden sm:flex items-center justify-center absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-gray-200 shadow-md border border-gray-400 rounded-full p-3 hover:bg-gray-300 transition"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-6 h-6 text-gray-700" />
         </button>
 
+        {/* Custom Next Button */}
         <button
           ref={nextRef}
-          className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2 hover:bg-gray-100 transition"
+          className="hidden sm:flex items-center justify-center absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-gray-200 shadow-md border border-gray-400 rounded-full p-3 hover:bg-gray-300 transition"
           aria-label="Next slide"
         >
-          <ChevronRight className="w-5 h-5" />
+          <ChevronRight className="w-6 h-6 text-gray-700" />
         </button>
       </div>
     </div>
