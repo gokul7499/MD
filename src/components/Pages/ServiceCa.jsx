@@ -56,7 +56,7 @@ const ServiceCarousel = () => {
   };
 
   const handleWhatsAppShare = () => {
-    const phoneNumber = '919999999999'; // Replace with actual number
+    const phoneNumber = '917057585497'; // Replace with actual number
     const message = `I'm interested in these services:\n\n${addedServices.map(service => `• ${service.title}`).join('\n')}`;
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');

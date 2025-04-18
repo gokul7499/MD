@@ -10,9 +10,7 @@ import {
   FaDraftingCompass,
   FaBuilding,
 } from "react-icons/fa";
-import { FaPaintbrush, FaBuildingColumns } from "react-icons/fa6";
-import { SiBandsintown } from "react-icons/si";
-import { IoHome, IoFlash, IoWaterOutline } from "react-icons/io5";
+
 import { GiPlantSeed, GiVineLeaf, GiWaterDrop } from "react-icons/gi";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -115,7 +113,7 @@ const Home = () => {
       >
         <SwiperSlide>
           <img
-            src="/img/Worker.jpg"
+            src="/img/Constructionwork.png"
             alt={t('slide1_alt')}
             className="w-full h-full object-cover"
           />
@@ -127,6 +125,7 @@ const Home = () => {
             className="w-full h-full object-cover"
           />
         </SwiperSlide>
+       
         <SwiperSlide>
           <img
             src="/img/plumer.jpg"

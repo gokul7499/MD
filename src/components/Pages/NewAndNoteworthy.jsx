@@ -9,11 +9,11 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 
 const data = [
-  { title: 'Landscape Designing', img: '/img/landscpedesing.png' },
+  { title: 'Landscape Designing', img: '/img/before.jpg' },
   { title: 'Modular Kitchens', img: '/img/kichen.png' },
   { title: 'Roofing Solutions', img: '/img/styleimg.png' },
   { title: 'Flooring Services', img: '/img/flooringse.png' },
-  { title: 'Swimming Pools', img: '/img/containers.png' },
+  { title: 'Swimming Pools', img: '/img/nightwater.jpg' },
 ];
 
 const NewAndNoteworthy = () => {
