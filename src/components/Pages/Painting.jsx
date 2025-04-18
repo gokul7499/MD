@@ -3,8 +3,7 @@ import { X } from 'lucide-react';
 import { IoHome, IoWaterOutline } from 'react-icons/io5';
 import { FaTree, FaPaintRoller } from 'react-icons/fa';
 import { motion } from 'framer-motion'; // Importing framer-motion
-import ServiceCarousel from './ServiceCa'; // assuming this exists
-
+import ServiceCarousel from './ServiceCarousel';
 const imageMap = {
   Indoor: '/img/indoor.jpg',
   Outdoor: '/img/Outdoor.jpg',

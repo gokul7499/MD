@@ -12,10 +12,4 @@
   * {
     font-family: 'Poppins', sans-serif;
   }
-  body {
-    cursor: none  !important; 
-  }
-  
-  button, a, .clickable {
-    cursor: pointer !important;
-  }
+ 
