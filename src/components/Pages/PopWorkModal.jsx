@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Home, TreePine, Droplet } from 'lucide-react';
 import { motion } from 'framer-motion';
-import ServiceCarousel from './ServiceCa'; // Make sure this path is correct
+import ServiceCarousel from './ServiceCarousel'; 
 import { useTranslation } from 'react-i18next';
 
 const imageMap = {

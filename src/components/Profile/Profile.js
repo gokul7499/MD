@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+
 import Nav from "../Navbar/Nav";
 
 export default function LoginSignUpForm({ setUserDetails }) {
@@ -15,7 +15,7 @@ export default function LoginSignUpForm({ setUserDetails }) {
   const [isOtpVerified, setIsOtpVerified] = useState(false);
 
   const otpRefs = useRef([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     otpRefs.current = Array(6).fill().map((_, i) => otpRefs.current[i] || React.createRef());

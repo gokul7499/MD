@@ -21,7 +21,7 @@ const ScrollCircle = () => {
   return (
     <div className="scroll-buttons-container">
       <a
-        href="https://wa.me/919999999999"
+        href="https://wa.me/7057585497"
         target="_blank"
         rel="noopener noreferrer"
         className="scroll-circle-wrapper"
@@ -37,7 +37,7 @@ const ScrollCircle = () => {
       </a>
 
       <a
-        href="tel:+919999999999"
+        href="tel:+917057585497"
         className="scroll-circle-wrapper"
       >
         <div className="scroll-circle call">

@@ -8,7 +8,17 @@ const Orders = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">{t('my_orders')}</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-gray-800">{t('my_orders')}</h1>
+        {orders.length > 0 && (
+          <div className="flex items-center">
+            <span className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-2">
+              {orders.length}
+            </span>
+            <span className="text-gray-600">{t('orders')}</span>
+          </div>
+        )}
+      </div>
 
       {orders.length === 0 ? (
         <div className="text-center py-20">
@@ -42,12 +52,14 @@ const Orders = () => {
                 <div className="text-right">
                   <p className="text-sm text-gray-500">{t('total')}</p>
                   <p className="text-lg font-bold text-blue-600">₹{order.total}</p>
-                  <button
-                    onClick={() => cancelOrder(order.id)}
-                    className="mt-2 text-sm text-red-600 hover:underline"
-                  >
-                    {t('cancel_order')}
-                  </button>
+                  {order.status !== 'delivered' && (
+                    <button
+                      onClick={() => cancelOrder(order.id)}
+                      className="mt-2 text-sm text-red-600 hover:underline"
+                    >
+                      {t('cancel_order')}
+                    </button>
+                  )}
                 </div>
               </div>
 

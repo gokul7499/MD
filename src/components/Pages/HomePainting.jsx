@@ -61,7 +61,7 @@ const HomePainting = () => {
       {/* Image Section */}
       <div className="flex-1 w-full lg:w-auto">
         <img
-          src="img/trees.jpg"
+          src="img/paints.png"
           alt={t('homePainting.altText')}
           className="rounded-lg shadow-sm w-full h-auto max-h-[180px] md:max-h-[220px] object-cover object-center"
         />
