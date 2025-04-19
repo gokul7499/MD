@@ -1,4 +1,7 @@
+'use client';
+
 import React, { useRef, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -9,6 +12,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const ApplianceRepairCarousel = () => {
+  const { t } = useTranslation();
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const [swiperInstance, setSwiperInstance] = useState(null);
@@ -24,31 +28,31 @@ const ApplianceRepairCarousel = () => {
 
   const applianceServices = [
     {
-      title: 'Washing Machine Repair',
+      title: t('applianceRepair.services.washing'),
       image: 'https://themddevelopers.com/assets/washing-BUN-dRZE.jpeg',
     },
     {
-      title: 'AC Repair & Service',
+      title: t('applianceRepair.services.ac'),
       image: 'https://themddevelopers.com/assets/ACReapi-BsdsE7OV.jpg',
     },
     {
-      title: 'Water Purifier Repair',
+      title: t('applianceRepair.services.purifier'),
       image: 'https://themddevelopers.com/assets/Top-Notch%20RO%20Services%20in%20Bareilly_%20Ensuring%20Clean%20and%20Safe%20Drinking%20Water-B_IYJhJ2.jpeg',
     },
     {
-      title: 'Television Repair',
+      title: t('applianceRepair.services.tv'),
       image: 'https://themddevelopers.com/assets/Refrigerator%20Repair%20Near%20Me-0CnEIiUK.jpeg',
     },
     {
-      title: 'Refrigerator Repair',
+      title: t('applianceRepair.services.fridge'),
       image: 'https://themddevelopers.com/assets/Freezer%20_%20Microwave%20Repair-C0krbpW8.jpeg',
     },
     {
-      title: 'Microwave Oven Repair',
+      title: t('applianceRepair.services.microwave'),
       image: 'https://themddevelopers.com/assets/chimney%20service%20in%20dehradun-DSaGdDdk.jpeg',
     },
     {
-      title: 'Air Purifier Serivece',
+      title: t('applianceRepair.services.airPurifier'),
       image: 'https://themddevelopers.com/assets/K%C3%A4rcher%20-%20Air%20purifier%20AF%2020-LVNqxA-8.jpeg',
     },
   ];
@@ -68,7 +72,7 @@ const ApplianceRepairCarousel = () => {
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-        AC & Appliance Repair
+        {t('applianceRepair.title')}
       </motion.h2>
 
       <div className="relative h-full">

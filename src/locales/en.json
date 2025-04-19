@@ -2,7 +2,6 @@
   "home": "Home",
   "shop": "Shop",
   "aboutus": "About Us",
-
   "contacts": "Contact Us",
   "settings": "Settings",
   "location": "Search for products",
@@ -60,20 +59,22 @@
     "gypsum": "Gypsum Pop",
     "overlay": "Explore"
   },
-    "rating": "4.8 Service Rating",
-    "customers": "12M+ Customers",
+  "rating": "4.8 Service Rating",
+  "customers": "12M+ Customers",
+  "bookNow": "Book now",
+  "services": [
+    { "title": "Interior House Decorator" },
+    { "title": "Light Fitting" },
+    { "title": "Plumbing" },
+    { "title": "AC Installation" }
+  ],
+  "homePainting": {
+    "glowUpText": "Give your space the glow-up it deserves",
+    "title": "Home Painting",
     "bookNow": "Book now",
-    "services": [
-      { "title": "Interior House Decorator" },
-      { "title": "Light Fitting" },
-      { "title": "Plumbing" },
-      { "title": "AC Installation" }
-    ],  "homePainting": {
-      "glowUpText": "Give your space the glow-up it deserves",
-      "title": "Home Painting",
-      "bookNow": "Book now",
-      "altText": "Home Painting"
-    },  "contact": {
+    "altText": "Home Painting"
+  },
+  "contact": {
     "getInTouch": "Get in Touch with Our Construction Experts!",
     "description": "Whether you're planning a new building, need plumbing, electrical fitting, or want advice from our site experts, we’re here for you!",
     "services": {
@@ -100,75 +101,95 @@
       "phoneInvalid": "Invalid phone number",
       "message": "Message is required"
     }
-  },  "footerDescription": "We specialize in providing top-quality construction and design services. Whether you're building a new home or renovating an existing space, we are here to bring your vision to life.",
+  },
+  "footerDescription": "We specialize in providing top-quality construction and design services. Whether you're building a new home or renovating an existing space, we are here to bring your vision to life.",
   "quickLinks": "Quick Links",
   "ourServices": "Our Services",
   "residential": "Residential",
   "commercial": "Commercial",
   "interiors": "Interiors",
   "renovation": "Renovation",
-  "contactUs": "Contact Us"
-, "cart": {
-  "title": "Your Cart",
-  "emptyCart": "Your cart is empty.",
-  "emptyCartAlert": "Your cart is empty. Please add items before proceeding.",
-  "quantity": "Qty",
-  "buy": "Buy",
-  "remove": "Remove",
-  "total": "Total",
-  "proceedToCheckout": "Proceed to Checkout"
-}
-  ,
-    "full_name": "Full Name",
-    "name_placeholder": "Enter your full name",
-    "phone_number": "Phone Number",
-    "phone_placeholder": "Enter your phone number",
-    "invalid_phone": "Please enter a valid 10-digit phone number",
-    "delivery_address": "Delivery Address",
-    "address_placeholder": "Enter your delivery address",
-    "pin_code": "Pin Code",
-    "pincode_placeholder": "Enter your pin code",
-    "invalid_pincode": "Please enter a valid 6-digit pin code",
-    "district": "District",
-    "city": "City",
-    "email": "Email Address",
-    "email_placeholder": "Enter your email address",
-    "invalid_email": "Please enter a valid email address",
-    "delivery_instructions": "Delivery Instructions",
-    "instructions_placeholder": "Add any specific delivery instructions",
-    "proceed_to_payment": "Proceed to Payment",
-    "shipping_info": "Shipping Information",
-    "payment_method": "Payment Method",
-    "cod": "Cash on Delivery",
-    "cod_description": "Pay with cash when your order is delivered",
-    "debit_credit_card": "Debit/Credit Card",
-    "card_details": "Card Details",
-    "card_number": "Card Number",
-    "card_number_placeholder": "1234 5678 9012 3456",
-    "invalid_card_number": "Please enter a valid 16-digit card number",
-    "name_on_card": "Name on Card",
-    "card_name_placeholder": "John Doe",
-    "expiry": "Expiry (MM/YY)",
-    "expiry_placeholder": "MM/YY",
-    "invalid_expiry": "Please enter in MM/YY format",
-    "cvv": "CVV",
-    "cvv_placeholder": "123",
-    "invalid_cvv": "Please enter 3 or 4 digit CVV",
-    "back": "Back",
-    "place_order": "Place Order",
-    "order_summary": "Order Summary",
-    "subtotal": "Subtotal",
-    "shipping": "Shipping",
-    "free_shipping": "Free",
+  "contactUs": "Contact Us",
+  "cart": {
+    "title": "Your Cart",
+    "emptyCart": "Your cart is empty.",
+    "emptyCartAlert": "Your cart is empty. Please add items before proceeding.",
+    "quantity": "Qty",
+    "buy": "Buy",
+    "remove": "Remove",
     "total": "Total",
-    "invalid_card_alert": "Please enter valid card details",
-    "order_success_alert": "Order placed successfully with {{method}}"
-  
-  
-  
- 
+    "proceedToCheckout": "Proceed to Checkout"
+  },
+  "full_name": "Full Name",
+  "name_placeholder": "Enter your full name",
+  "phone_number": "Phone Number",
+  "phone_placeholder": "Enter your phone number",
+  "invalid_phone": "Please enter a valid 10-digit phone number",
+  "delivery_address": "Delivery Address",
+  "address_placeholder": "Enter your delivery address",
+  "pin_code": "Pin Code",
+  "pincode_placeholder": "Enter your pin code",
+  "invalid_pincode": "Please enter a valid 6-digit pin code",
+  "district": "District",
+  "city": "City",
+  "email": "Email Address",
+  "email_placeholder": "Enter your email address",
+  "invalid_email": "Please enter a valid email address",
+  "delivery_instructions": "Delivery Instructions",
+  "instructions_placeholder": "Add any specific delivery instructions",
+  "proceed_to_payment": "Proceed to Payment",
+  "shipping_info": "Shipping Information",
+  "payment_method": "Payment Method",
+  "cod": "Cash on Delivery",
+  "cod_description": "Pay with cash when your order is delivered",
+  "debit_credit_card": "Debit/Credit Card",
+  "card_details": "Card Details",
+  "card_number": "Card Number",
+  "card_number_placeholder": "1234 5678 9012 3456",
+  "invalid_card_number": "Please enter a valid 16-digit card number",
+  "name_on_card": "Name on Card",
+  "card_name_placeholder": "John Doe",
+  "expiry": "Expiry (MM/YY)",
+  "expiry_placeholder": "MM/YY",
+  "invalid_expiry": "Please enter in MM/YY format",
+  "cvv": "CVV",
+  "cvv_placeholder": "123",
+  "invalid_cvv": "Please enter 3 or 4 digit CVV",
+  "back": "Back",
+  "place_order": "Place Order",
+  "order_summary": "Order Summary",
+  "subtotal": "Subtotal",
+  "shipping": "Shipping",
+  "free_shipping": "Free",
+  "total": "Total",
+  "invalid_card_alert": "Please enter valid card details",
+  "order_success_alert": "Order placed successfully with {{method}}",
+  "acRepair": {
+    "title": "AC & Appliance Repair",
+    "services": {
+      "washing": "Washing Machine Repair",
+      "ac": "AC Repair & Service",
+      "purifier": "Water Purifier Repair",
+      "tv": "Television Repair",
+      "fridge": "Refrigerator Repair",
+      "microwave": "Microwave Oven Repair",
+      "airPurifier": "Air Purifier Service"
+    }
+  },
+  "newAndNoteworthy": {
+    "title": "New And Noteworthy",
+    "landscape": "Landscape Designing",
+    "kitchen": "Modular Kitchens",
+    "roofing": "Roofing Solutions",
+    "flooring": "Flooring Services",
+    "pool": "Swimming Pools"
+  },
+  "Video Carousel": "videocarousel",
+  "titles": {
+    "landscape": "Landscape Designing",
+    "kitchen": "Modular Kitchens",
+    "roofing": "Roofing Solutions",
+    "flooring": "Flooring Services",
+    "pool": "Swimming Pools"
+  }
 }
- 
-
-
-

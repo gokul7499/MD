@@ -2,24 +2,26 @@ import React, { useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 
-const data = [
-  { title: 'Landscape Designing', img: '/img/before.jpg' },
-  { title: 'Modular Kitchens', img: '/img/kichen.png' },
-  { title: 'Roofing Solutions', img: '/img/styleimg.png' },
-  { title: 'Flooring Services', img: '/img/flooringse.png' },
-  { title: 'Swimming Pools', img: '/img/nightwater.jpg' },
-];
-
 const NewAndNoteworthy = () => {
+  const { t } = useTranslation();
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const swiperRef = useRef(null);
+
+  const data = [
+    { title: t('newAndNoteworthy.landscape'), img: '/img/before.jpg' },
+    { title: t('newAndNoteworthy.kitchen'), img: '/img/kichen.png' },
+    { title: t('newAndNoteworthy.roofing'), img: '/img/styleimg.png' },
+    { title: t('newAndNoteworthy.flooring'), img: '/img/flooringse.png' },
+    { title: t('newAndNoteworthy.pool'), img: '/img/nightwater.jpg' },
+  ];
 
   useEffect(() => {
     if (swiperRef.current && swiperRef.current.swiper) {
@@ -33,7 +35,7 @@ const NewAndNoteworthy = () => {
   return (
     <div className="py-10 px-4 md:px-12 bg-white text-center">
       <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8">
-        New And Noteworthy
+        {t('newAndNoteworthy.title')}
       </h2>
 
       <div className="relative">
@@ -84,7 +86,6 @@ const NewAndNoteworthy = () => {
           ))}
         </Swiper>
 
-        {/* Custom Prev Button */}
         <button
           ref={prevRef}
           className="hidden sm:flex items-center justify-center absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-gray-200 shadow-md border border-gray-400 rounded-full p-3 hover:bg-gray-300 transition"
@@ -93,7 +94,6 @@ const NewAndNoteworthy = () => {
           <ChevronLeft className="w-6 h-6 text-gray-700" />
         </button>
 
-        {/* Custom Next Button */}
         <button
           ref={nextRef}
           className="hidden sm:flex items-center justify-center absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-gray-200 shadow-md border border-gray-400 rounded-full p-3 hover:bg-gray-300 transition"
