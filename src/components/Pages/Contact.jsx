@@ -54,7 +54,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-slate-900 to-blue-900 flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-r from-slate-900 to-blue-900 flex items-center justify-center px-4 py-12 ">
       <div className="w-full max-w-6xl bg-black bg-opacity-50 backdrop-blur-lg rounded-xl p-6 sm:p-8 text-white grid grid-cols-1 md:grid-cols-2 gap-10">
         
         {/* Left Section */}

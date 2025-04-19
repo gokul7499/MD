@@ -3,6 +3,7 @@ import './App.css';
 import './i18n';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { OrderProvider } from './components/context/OrderContext';
+import { ThemeProvider, useTheme } from './components/ThemeContext';  // Import ThemeProvider
 
 import Nav from './components/Navbar/Nav';
 import Home from './components/Pages/Home';
@@ -20,13 +21,13 @@ import ScrollCircle from './components/Pages/ScrollCircle';
 import Orders from './components/Orders/Orders';
 import About from './components/Pages/Aboutus';
 
-
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [userDetails, setUserDetails] = useState({ name: "" });
 
+  // Fetch user details from localStorage
   useEffect(() => {
     const stored = localStorage.getItem("userDetails");
     if (stored) {
@@ -41,89 +42,46 @@ function App() {
     }
   }, []);
 
-  const handleBuy = (item) => {
-    setCartItems((prevItems) => {
-      const existing = prevItems.find((i) => i.id === item.id);
-      if (existing) {
-        return prevItems.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
-        );
-      } else {
-        return [...prevItems, { ...item, quantity: 1 }];
-      }
-    });
-    setIsCartOpen(true);
-  };
-
-  const handleRemove = (itemId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
-  };
-
-  const handleBuySingle = (item) => {
-    alert(`Buying ${item.name} (${item.quantity}) - ₹${item.price * item.quantity}`);
-  };
-
-  const handleCartClose = () => setIsCartOpen(false);
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') handleCartClose();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  const { theme, toggleTheme } = useTheme();  // Access the current theme
 
   return (
-    <OrderProvider>
-      <Router>
-      
-        <ScrollToTop />
-        <ToastContainer
-          position="bottom-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+    <div className={`min-h-screen ${theme === 'dark' ? 'dark' : ''}`}> {/* Apply theme class globally */}
+      <OrderProvider>
+        <Router>
+          <ScrollToTop />
+          <ToastContainer position="bottom-right" autoClose={3000} hideProgressBar={false} />
 
-        <Nav
-          onCartClick={() => setIsCartOpen(true)}
-          onSettingsClick={() => setIsSettingsOpen(true)}
-          userDetails={userDetails}
-        />
+          <Nav
+            onCartClick={() => setIsCartOpen(true)}
+            onSettingsClick={() => setIsSettingsOpen(true)}
+            userDetails={userDetails}
+            toggleTheme={toggleTheme}  // Pass theme toggle function to Nav
+          />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop onBuy={handleBuy} />} />
-          <Route path="/checkout" element={<Checkout cartItems={cartItems} />} />
-          <Route path="/login" element={<LoginSignUpForm setUserDetails={setUserDetails} />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/login" element={<LoginSignUpForm setUserDetails={setUserDetails} />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
 
-        <CartDrawer
-          isOpen={isCartOpen}
-          onClose={handleCartClose}
-          cartItems={cartItems}
-          onRemove={handleRemove}
-          onBuySingle={handleBuySingle}
-        />
-
-        <SettingsDrawer
-          isOpen={isSettingsOpen}
-          onClose={() => setIsSettingsOpen(false)}
-        />
-
-        <ScrollCircle />
-        <Footer />
-      </Router>
-    </OrderProvider>
+          <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+          <SettingsDrawer isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
+          <ScrollCircle />
+          <Footer />
+        </Router>
+      </OrderProvider>
+    </div>
   );
 }
- 
-export default App;
+
+export default function AppWrapper() {
+  return (
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>  // Wrap App with ThemeProvider
+  );
+}

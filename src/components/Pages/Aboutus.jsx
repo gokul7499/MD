@@ -121,10 +121,7 @@ const AboutUsPage = () => {
         </div>
       </section>
 
-      {/* Footer Section */}
-      <footer className="bg-gray-800 text-white text-center py-6">
-        <p>&copy; 2025 Construction Services, All Rights Reserved.</p>
-      </footer>
+    
     </div>
   );
 };
