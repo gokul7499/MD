@@ -1,24 +1,65 @@
+/* Base Theme Styles */
+body.dark {
+  --bg-color: #1a1a2e;
+  --text-color: #ffffff;
+  --card-bg: #16213e;
+  --border-color: #2d3748;
+}
 
+body.light {
+  --bg-color: #f8f9fa;
+  --text-color: #212529;
+  --card-bg: #ffffff;
+  --border-color: #dee2e6;
+}
 
-  /* App.css */
+body.blue {
+  --bg-color: #e6f7ff;
+  --text-color: #003a8c;
+  --card-bg: #bae7ff;
+  --border-color: #69c0ff;
+}
 
-body.theme-dark {
-    background-color: #121212;
-    color: #ffffff;
-  }
-  
-  body.theme-light {
-    background-color: #ffffff;
-    color: #000000;
-  }
-  
-  body.theme-blue {
-    background-color: #0d1b2a;
-    color: #ffffff;
-  }
-  
-  /* Optional - Make sure other elements use body colors */
-  a, p, span, div, h1, h2, h3, h4, h5, h6 {
-    transition: color 0.3s, background-color 0.3s;
-  }
-  
+/* Apply theme variables */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+/* Settings Drawer Styles */
+.settings-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100vh;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  z-index: 1000;
+  padding: 20px;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.theme-option {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.theme-option.dark { background: #1a1a2e; border: 1px solid #fff; }
+.theme-option.light { background: #f8f9fa; border: 1px solid #000; }
+.theme-option.blue { background: #1890ff; border: 1px solid #fff; }
+.theme-option.active { transform: scale(1.1); }
+
+.settings-button {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 999;
+}

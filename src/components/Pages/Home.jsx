@@ -187,7 +187,7 @@ const Home = () => {
           />
         </div>
       </div>
-
+   
       <ServiceCarousel />
       <HomePainting />
       <NewAndNoteworthy />
