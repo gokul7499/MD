@@ -6,7 +6,7 @@ import CartDrawer from '../Cart/Cart';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import { useTranslation } from 'react-i18next';
 import { useOrders } from '../context/OrderContext';
-import { useTheme } from "../ThemeContext";
+// import { useTheme } from "../ThemeContext";
 import { FaMoon, FaSun } from "react-icons/fa";
 
 const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
@@ -22,7 +22,7 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
   const navigate = useNavigate();
   const currentPath = useLocation().pathname;
   const { orderCount } = useOrders();
-  const { theme, toggleTheme } = useTheme();
+
   
   // Get userDetails from props or localStorage
   const storedUser = localStorage.getItem("userDetails");
@@ -37,16 +37,16 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
 
   // Placeholder animation logic
   const placeholders = [
-    'Search for products',
-    'Search for brands',
-    'Search for categories',
-    'Search for AC fitting',
-    'Search for services',
-    'Search local experts',
-    'Search for building materials',
-    'Search electricians',
-    'Search construction tools',
-    'Search plumbing services',
+    '  Search for products',
+    '  Search for brands',
+    '  Search for categories',
+    '  Search for AC fitting',
+    '  Search for services',
+    '  Search local experts',
+    '  Search for building materials',
+    '  Search electricians',
+    '  Search construction tools',
+    '  Search plumbing services',
   ];
 
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
@@ -132,7 +132,7 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
 
   return (
     <>
-      <div className={`fixed top-0 left-0 w-full shadow-md z-50 ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'}`}>
+      <div className={`fixed top-0 left-0 w-full shadow-md z-50 bg-white`}>
         <div className="container mx-auto px-4">
           {/* Top Bar - Logo and Mobile Controls */}
           <div className="flex items-center justify-between py-3">
@@ -142,7 +142,10 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
               className="text-xl md:text-2xl font-bold flex items-center"
               onClick={handleNavClick('/')}
             >
-              <span className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-2 py-1 rounded mr-2">MD</span>
+           <span className=" ">
+  <img src='img/mdlogo.png' className="w-12 h-auto" />  
+  {/* w-12 = width: 3rem (48px), h-auto = height adjusts proportionally */}
+</span>
               <span className="hidden sm:inline">Developer</span>
             </Link>
 
@@ -152,28 +155,28 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
               <div className="flex space-x-6 text-base font-medium">
                 <Link 
                   to="/" 
-                  className={`hover:text-pink-600 px-2 py-1 transition-colors duration-200 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
+                  className={`hover:text-pink-600 px-2 py-1 transition-colors duration-200 `}
                   onClick={handleNavClick('/')}
                 >
                   {t('home')}
                 </Link>
                 <Link 
                   to="/shop" 
-                  className={`hover:text-pink-600 px-2 py-1 transition-colors duration-200 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
+                  className={`hover:text-pink-600 px-2 py-1 transition-colors duration-200 `}
                   onClick={handleNavClick('/shop')}
                 >
                   {t('shop')}
                 </Link>
                 <Link 
                   to="/about" 
-                  className={`hover:text-pink-600 px-2 py-1 transition-colors duration-200 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
+                  className={`hover:text-pink-600 px-2 py-1 transition-colors duration-200 `}
                   onClick={handleNavClick('/about')}
                 >
                   {t('aboutus')}
                 </Link>
                 <Link 
                   to="/contact" 
-                  className={`hover:text-pink-600 px-2 py-1 transition-colors duration-200 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
+                  className={`hover:text-pink-600 px-2 py-1 transition-colors duration-200`}
                   onClick={handleNavClick('/contact')}
                 >
                   {t('contacts')}
@@ -185,11 +188,7 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
                 <select
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className={`border rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 ${
-                    theme === 'dark' 
-                      ? 'bg-gray-700 border-gray-600 text-white' 
-                      : 'border-gray-300 text-gray-700'
-                  }`}
+                  className={`border rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 `}
                 >
                   <option value="delhi">{t('location_options.delhi')}</option>
                   <option value="cp">{t('location_options.cp')}</option>
@@ -203,17 +202,11 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder={displayText}
-                    className={`border rounded-md pl-3 pr-8 py-1 w-48 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 ${
-                      theme === 'dark' 
-                        ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
-                        : 'border-gray-300 text-gray-700'
-                    }`}
+                    className={`border rounded-md pl-3 pr-8 py-1 w-48 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500`}
                   />
                   <button 
                     type="submit" 
-                    className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-                    } hover:text-pink-600`}
+                    className={`absolute right-2 top-1/2 transform -translate-y-1/2  hover:text-pink-600`}
                   >
                     <FaSearch size={14} />
                   </button>
@@ -226,9 +219,7 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
 
                 <button 
                   onClick={handleCartClick}
-                  className={`relative p-1 transition-colors duration-200 ${
-                    theme === 'dark' ? 'text-gray-300 hover:text-pink-600' : 'text-gray-700 hover:text-pink-600'
-                  }`}
+                  className={`relative p-1 transition-colors duration-200 `}
                 >
                   <ShoppingCart size={20} />
                   {orderCount > 0 && (
@@ -240,9 +231,7 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
 
                 <Link 
                   to="/orders" 
-                  className={`relative p-1 transition-colors duration-200 ${
-                    theme === 'dark' ? 'text-gray-300 hover:text-pink-600' : 'text-gray-700 hover:text-pink-600'
-                  }`}
+                  className={`relative p-1 transition-colors duration-200 `}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -251,9 +240,7 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
 
                 <button 
                   onClick={() => setIsSettingsDrawerOpen(true)} 
-                  className={`p-1 transition-colors duration-200 ${
-                    theme === 'dark' ? 'text-gray-300 hover:text-pink-600' : 'text-gray-700 hover:text-pink-600'
-                  }`}
+                  className={`p-1 transition-colors duration-200 `}
                 >
                   <FaCog className="text-lg" />
                 </button>
@@ -266,14 +253,8 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
                     {initial}
                   </div>
                   {showLogoutPopup && (
-                    <div className={`absolute top-10 right-0 shadow-xl rounded-md border p-3 w-48 z-50 ${
-                      theme === 'dark' 
-                        ? 'bg-gray-700 border-gray-600' 
-                        : 'bg-white border-gray-200'
-                    }`}>
-                      <p className={`text-sm mb-3 ${
-                        theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                      }`}>Are you sure you want to logout?</p>
+                    <div className={`absolute top-10 right-0 shadow-xl rounded-md border p-3 w-48 z-50 `}>
+                      <p className={`text-sm mb-3`}>Are you sure you want to logout?</p>
                       <div className="flex justify-between space-x-2">
                         <button
                           onClick={handleLogout}
@@ -283,11 +264,7 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
                         </button>
                         <button
                           onClick={handleCancelLogout}
-                          className={`px-3 py-1 text-sm rounded transition-colors duration-200 flex-1 ${
-                            theme === 'dark' 
-                              ? 'text-gray-300 hover:bg-gray-600' 
-                              : 'text-gray-600 hover:bg-gray-100'
-                          }`}
+                          className={`px-3 py-1 text-sm rounded transition-colors duration-200 flex-1`}
                         >
                           Cancel
                         </button>
@@ -302,14 +279,14 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
             <div className="lg:hidden flex items-center space-x-4">
               <button 
                 onClick={() => setIsSearchExpanded(!isSearchExpanded)}
-                className={`p-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}
+                className={`p-1 `}
               >
                 <FaSearch size={18} />
               </button>
               
               <button 
                 onClick={handleCartClick}
-                className={`relative p-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}
+                className={`relative p-1 `}
               >
                 <ShoppingCart size={20} />
                 {orderCount > 0 && (
@@ -332,11 +309,7 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={displayText}
-                  className={`border rounded-md px-3 py-2 text-sm flex-1 focus:outline-none focus:ring-2 focus:ring-pink-500 ${
-                    theme === 'dark' 
-                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
-                      : 'border-gray-300 text-gray-700'
-                  }`}
+                  className={`border rounded-md px-3 py-2 text-sm flex-1 focus:outline-none focus:ring-2 focus:ring-pink-500 `}
                   autoFocus
                 />
                 <button 
@@ -352,22 +325,18 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
 
         {/* Mobile Menu Dropdown */}
         {isMobileMenuOpen && (
-          <div className={`lg:hidden shadow-lg animate-slideDown ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+          <div className={`lg:hidden shadow-lg animate-slideDown `}>
             <div className="container mx-auto px-4 py-2">
               {/* Mobile Navigation Links */}
               <div className="flex flex-col space-y-1 py-2">
                 <Link
                   to="/"
                   onClick={handleNavClick('/')}
-                  className={`py-3 px-4 rounded-lg transition-colors duration-200 flex items-center ${
-                    theme === 'dark' 
-                      ? 'text-gray-300 hover:bg-gray-700' 
-                      : 'text-gray-700 hover:bg-pink-50'
-                  }`}
+                  className={`py-3 px-4 rounded-lg transition-colors duration-200 flex items-center 
+                  `}
                 >
-                  <span className={`w-6 h-6 rounded-full flex items-center justify-center mr-3 ${
-                    theme === 'dark' ? 'bg-gray-600 text-pink-400' : 'bg-pink-100 text-pink-600'
-                  }`}>
+                  <span className={`w-6 h-6 rounded-full flex items-center justify-center mr-3 
+                 `}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
@@ -377,15 +346,9 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
                 <Link
                   to="/shop"
                   onClick={handleNavClick('/shop')}
-                  className={`py-3 px-4 rounded-lg transition-colors duration-200 flex items-center ${
-                    theme === 'dark' 
-                      ? 'text-gray-300 hover:bg-gray-700' 
-                      : 'text-gray-700 hover:bg-pink-50'
-                  }`}
+                  className={`py-3 px-4 rounded-lg transition-colors duration-200 flex items-center `}
                 >
-                  <span className={`w-6 h-6 rounded-full flex items-center justify-center mr-3 ${
-                    theme === 'dark' ? 'bg-gray-600 text-pink-400' : 'bg-pink-100 text-pink-600'
-                  }`}>
+                  <span className={`w-6 h-6 rounded-full flex items-center justify-center mr-3`}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                     </svg>
@@ -410,9 +373,7 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
                   className={`py-3 px-4 rounded-lg transition-colors duration-200 flex items-center 
                `}
                 >
-                  <span className={`w-6 h-6 rounded-full flex items-center justify-center mr-3 ${
-                    theme === 'dark' ? 'bg-gray-600 text-pink-400' : 'bg-pink-100 text-pink-600'
-                  }`}>
+                  <span className={`w-6 h-6 rounded-full flex items-center justify-center mr-3 `}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
@@ -422,34 +383,14 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
               </div>
 
               {/* Theme Toggle in Mobile Menu */}
-              <div className="py-2 px-4">
-                <button
-                  onClick={toggleTheme}
-                  className={`flex items-center w-full p-2 rounded-lg transition-colors duration-200`}
-                >
-                  <span className={`w-6 h-6 rounded-full flex items-center justify-center mr-3 ${
-                    theme === 'dark' ? 'bg-gray-600' : 'bg-gray-200'
-                  }`}>
-                    {theme === "dark" ? (
-                      <FaSun className="text-yellow-400" size={16} />
-                    ) : (
-                      <FaMoon className="text-gray-700" size={16} />
-                    )}
-                  </span>
-                  {theme === "dark" ? "Light Mode" : "Dark Mode"}
-                </button>
-              </div>
+             
 
               {/* Mobile Location Selector */}
               <div className={`py-3 px-4 border-t `}>
                 <select
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className={`w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 ${
-                    theme === 'dark' 
-                      ? 'bg-gray-700 border-gray-600 text-white' 
-                      : 'border-gray-300 text-gray-700'
-                  }`}
+                  className={`w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 `}
                 >
                   <option value="delhi">{t('location_options.delhi')}</option>
                   <option value="cp">{t('location_options.cp')}</option>
@@ -459,17 +400,13 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
               </div>
 
               {/* Mobile Bottom Actions */}
-              <div className={`flex items-center justify-between py-3 px-4 border-t ${
-                theme === 'dark' ? 'border-gray-700' : 'border-gray-100'
-              }`}>
+              <div className={`flex items-center justify-between py-3 px-4 border-t `}>
                 <button
                   onClick={() => {
                     setIsSettingsDrawerOpen(true);
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`flex items-center p-2 transition-colors duration-200 ${
-                    theme === 'dark' ? 'text-gray-300 hover:text-pink-600' : 'text-gray-700 hover:text-pink-600'
-                  }`}
+                  className={`flex items-center p-2 transition-colors duration-200 `}
                 >
                   <FaCog className="mr-2" />
                   <span>{t('settings')}</span>
@@ -478,9 +415,7 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
                 <Link
                   to="/orders"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center p-2 transition-colors duration-200 ${
-                    theme === 'dark' ? 'text-gray-300 hover:text-pink-600' : 'text-gray-700 hover:text-pink-600'
-                  }`}
+                  className={`flex items-center p-2 transition-colors duration-200 `}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -496,14 +431,8 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
                     {initial}
                   </div>
                   {showLogoutPopup && (
-                    <div className={`absolute bottom-12 right-0 shadow-xl rounded-md border p-3 w-48 z-50 ${
-                      theme === 'dark' 
-                        ? 'bg-gray-700 border-gray-600' 
-                        : 'bg-white border-gray-200'
-                    }`}>
-                      <p className={`text-sm mb-3 ${
-                        theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                      }`}>Are you sure you want to logout?</p>
+                    <div className={`absolute bottom-12 right-0 shadow-xl rounded-md border p-3 w-48 z-50 `}>
+                      <p className={`text-sm mb-3 `}>Are you sure you want to logout?</p>
                       <div className="flex justify-between space-x-2">
                         <button
                           onClick={handleLogout}

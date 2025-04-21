@@ -117,7 +117,7 @@ export default function LoginSignUpForm({ setUserDetails }) {
             placeholder="Enter your full name"
             value={user.name}
             onChange={(e) => setUser({ ...user, name: e.target.value })}
-            className="border p-2 rounded-md w-full text-center"
+            className="border p-2 rounded-md w-full text-black text-center"
           />
         </div>
 
@@ -131,17 +131,17 @@ export default function LoginSignUpForm({ setUserDetails }) {
               const val = e.target.value;
               if (/^\d{0,10}$/.test(val)) setMobile(val);
             }}
-            className="w-full p-3 focus:outline-none"
+            className="w-full p-3 focus:outline-none text-black"
             maxLength="10"
           />
         </div>
 
-        <label className="flex items-center text-sm mb-6">
+        <label className="flex items-center text-sm mb-6 text-black">
           <input
             type="checkbox"
-            checked={whatsappUpdates}
+            checked={whatsappUpdates}  
             onChange={(e) => setWhatsappUpdates(e.target.checked)}
-            className="mr-2"
+            className="mr-2 text-black"
           />
           Get order updates on WhatsApp
         </label>
@@ -156,7 +156,7 @@ export default function LoginSignUpForm({ setUserDetails }) {
                 value={digit}
                 onChange={(e) => handleOtpChange(e, i)}
                 ref={otpRefs.current[i]}
-                className="w-10 h-10 text-center border rounded"
+                className="w-10 h-10 text-center border  text-black rounded"
               />
             ))}
           </div>

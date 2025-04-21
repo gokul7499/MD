@@ -69,7 +69,7 @@ const AboutUsPage = () => {
                 alt="Team Member 1"
                 className="w-32 h-32 mx-auto rounded-full object-cover"
               />
-              <h3 className="text-xl font-semibold text-gray-800 mt-4">John Doe</h3>
+              <h3 className="text-xl font-semibold text-gray-800 mt-4">Omkar Chaudhari</h3>
               <p className="text-gray-600 mt-2">CEO & Founder</p>
             </div>
             {/* Team Member 2 */}
