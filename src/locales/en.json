@@ -164,18 +164,7 @@
   "total": "Total",
   "invalid_card_alert": "Please enter valid card details",
   "order_success_alert": "Order placed successfully with {{method}}",
-  "acRepair": {
-    "title": "AC & Appliance Repair",
-    "services": {
-      "washing": "Washing Machine Repair",
-      "ac": "AC Repair & Service",
-      "purifier": "Water Purifier Repair",
-      "tv": "Television Repair",
-      "fridge": "Refrigerator Repair",
-      "microwave": "Microwave Oven Repair",
-      "airPurifier": "Air Purifier Service"
-    }
-  },
+  
   "newAndNoteworthy": {
     "title": "New And Noteworthy",
     "landscape": "Landscape Designing",
@@ -191,5 +180,54 @@
     "roofing": "Roofing Solutions",
     "flooring": "Flooring Services",
     "pool": "Swimming Pools"
-  }
+  },
+  "applianceRepair": {
+    "title": "Appliance Repair Services",
+    "services": {
+      "washing": "Washing Machine Repair",
+      "ac": "AC Repair",
+      "purifier": "RO Purifier Repair",
+      "tv": "TV Repair",
+      "fridge": "Fridge Repair",
+      "microwave": "Microwave Repair",
+      "airPurifier": "Air Purifier Repair"
+    }
+  },
+  
+    "about": {
+      "title": "About Us",
+      "overview": "We are a team of dedicated professionals committed to providing high-quality construction services. Our mission is to deliver exceptional results for our clients through innovation, efficiency, and reliability. We have been in the industry for over a decade and have built a reputation for excellence.",
+      "mission": {
+        "title": "Our Mission",
+        "text": "Our mission is to provide the highest quality construction services while maintaining our commitment to safety, sustainability, and customer satisfaction. We strive to exceed client expectations and build lasting relationships through trust and collaboration."
+      },
+      "vision": {
+        "title": "Our Vision",
+        "text": "Our vision is to become the most trusted and innovative construction company in the industry. We aim to lead with forward-thinking practices, delivering high-quality projects that create long-term value for our clients and communities."
+      },
+      "team": {
+        "title": "Meet Our Team",
+        "members": [
+          {
+            "name": "Omkar Chaudhari",
+            "position": "CEO & Founder"
+          },
+          {
+            "name": "Jane Smith",
+            "position": "Project Manager"
+          },
+          {
+            "name": "Alex Johnson",
+            "position": "Lead Engineer"
+          }
+        ]
+      },
+      "contact": {
+        "title": "Contact Us",
+        "text": "We would love to hear from you! Feel free to reach out to us for any questions or inquiries.",
+        "email": "Email Us",
+        "phone": "Call Us"
+      }
+    }
+  
 }
