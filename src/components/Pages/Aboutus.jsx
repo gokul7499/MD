@@ -37,7 +37,7 @@ const AboutUsPage = () => {
       </section>
 
       {/* Vision Section */}
-      <section className="py-16 px-4 bg-white">
+      <section className="py-16 px-4 bg-white  ">
         <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 px-10">
           <div className="flex justify-center md:justify-start">
             <img
@@ -112,8 +112,7 @@ const AboutUsPage = () => {
             </a>
             <span className="text-lg text-gray-600">|</span>
             <a
-              href="tel:+123456789"
-              className="text-lg text-blue-600 hover:underline"
+              href="tel:+123456789" className="text-lg text-blue-600 hover:underline"
             >
               Call Us
             </a>
