@@ -3,7 +3,7 @@ import './App.css';
 import './i18n';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { OrderProvider } from './components/context/OrderContext';
-import { ThemeProvider, useTheme } from './components/ThemeContext';  // Import ThemeProvider
+  // Import ThemeProvider
 
 import Nav from './components/Navbar/Nav';
 import Home from './components/Pages/Home';
@@ -42,10 +42,10 @@ function App() {
     }
   }, []);
 
-  const { theme, toggleTheme } = useTheme();  // Access the current theme
+    // Access the current theme
 
   return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'dark' : ''}`}> {/* Apply theme class globally */}
+    <div className={`min-h-screen `}> {/* Apply theme class globally */}
       <OrderProvider>
         <Router>
           <ScrollToTop />
@@ -55,7 +55,7 @@ function App() {
             onCartClick={() => setIsCartOpen(true)}
             onSettingsClick={() => setIsSettingsOpen(true)}
             userDetails={userDetails}
-            toggleTheme={toggleTheme}  // Pass theme toggle function to Nav
+            // Pass theme toggle function to Nav
           />
 
           <Routes>
@@ -78,10 +78,4 @@ function App() {
   );
 }
 
-export default function AppWrapper() {
-  return (
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>  // Wrap App with ThemeProvider
-  );
-}
+export default App;
