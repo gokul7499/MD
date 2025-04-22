@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useOrders } from '../context/OrderContext';
 // import { useTheme } from "../ThemeContext";
 import { FaMoon, FaSun } from "react-icons/fa";
+import AboutUsPage from '../Pages/Aboutus';
 
 const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
   const [location, setLocation] = useState('delhi');
@@ -142,10 +143,10 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
               className="text-xl md:text-2xl font-bold flex items-center"
               onClick={handleNavClick('/')}
             >
-           <span className=" ">
-  <img src='img/mdlogo.png' className="w-12 h-auto" />  
-  {/* w-12 = width: 3rem (48px), h-auto = height adjusts proportionally */}
-</span>
+              <span className=" ">
+                <img src='img/mdlogo.png' className="w-12 h-auto" />  
+                {/* w-12 = width: 3rem (48px), h-auto = height adjusts proportionally */}
+              </span>
               <span className="hidden sm:inline">Developer</span>
             </Link>
 
@@ -215,8 +216,6 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
 
               {/* Icons */}
               <div className="flex items-center space-x-4 ml-4">
-               
-
                 <button 
                   onClick={handleCartClick}
                   className={`relative p-1 transition-colors duration-200 `}
@@ -296,7 +295,17 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
                 )}
               </button>
               
-           
+              {/* Hamburger Menu Button */}
+              <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-1 focus:outline-none"
+              >
+                {isMobileMenuOpen ? (
+                  <FaTimes size={20} />
+                ) : (
+                  <FaBars size={20} />
+                )}
+              </button>
             </div>
           </div>
 
@@ -451,6 +460,7 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
                   )}
                 </div>
               </div>
+                    
             </div>
           </div>
         )}
