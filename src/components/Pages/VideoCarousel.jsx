@@ -1,40 +1,34 @@
 import React, { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
-
 const VideoCarousel = () => {
   const { t } = useTranslation();
   const scrollRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [itemWidth, setItemWidth] = useState(300);
   const [containerWidth, setContainerWidth] = useState(0);
-
-  const videos = [
+ const videos = [
     { src: "/img/vd1-Blp65JG-.mp4", title: t("titles.landscape") },
     { src: "/img/vd2-O70qnDQ-.mp4", title: t("titles.kitchen") },
     { src: "/img/vd3-DeCC50ly.mp4", title: t("titles.roofing") },
     { src: "/img/vd4-BUp2dX9H.mp4", title: t("titles.flooring") },
     { src: "/img/vd5-B0azAnJS.mp4", title: t("titles.pool") },
   ];
-
   const scrollToIndex = (index) => {
     const scrollPosition = index * (itemWidth + 16);
     scrollRef.current.scrollTo({ left: scrollPosition, behavior: "smooth" });
   };
-
   const scroll = (direction) => {
     const newIndex = direction === "left"
       ? Math.max(activeIndex - 1, 0)
       : Math.min(activeIndex + 1, videos.length - 1);
     scrollToIndex(newIndex);
   };
-
   const handleScroll = () => {
     const { scrollLeft } = scrollRef.current;
     const index = Math.round(scrollLeft / (itemWidth + 16));
     setActiveIndex(index);
   };
-
   useEffect(() => {
     const updateDimensions = () => {
       const screenWidth = window.innerWidth;
@@ -42,15 +36,12 @@ const VideoCarousel = () => {
       else if (screenWidth < 768) setItemWidth(320);
       else if (screenWidth < 1024) setItemWidth(360);
       else setItemWidth(400);
-
       if (scrollRef.current) setContainerWidth(scrollRef.current.offsetWidth);
     };
-
     updateDimensions();
     window.addEventListener("resize", updateDimensions);
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
-
   useEffect(() => {
     const current = scrollRef.current;
     if (current) {
@@ -58,13 +49,11 @@ const VideoCarousel = () => {
       return () => current.removeEventListener("scroll", handleScroll);
     }
   }, [itemWidth]);
-
   return (
     <div className="py-12 px-4 max-w-7xl mx-auto">
       <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-800">
         {t("Video Carousel")}
       </h2>
-
       <div className="relative">
         <button
           onClick={() => scroll("left")}
@@ -79,7 +68,6 @@ const VideoCarousel = () => {
         >
           <ChevronLeft className="w-5 h-5 text-gray-700" />
         </button>
-
         <div
           ref={scrollRef}
           className="flex gap-6 overflow-x-auto scroll-smooth no-scrollbar snap-x snap-mandatory px-4"
@@ -112,7 +100,6 @@ const VideoCarousel = () => {
             </div>
           ))}
         </div>
-
         <button
           onClick={() => scroll("right")}
           className={`hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-100 transition-all duration-300 ${
@@ -129,7 +116,6 @@ const VideoCarousel = () => {
           <ChevronRight className="w-5 h-5 text-gray-700" />
         </button>
       </div>
-
       <div className="flex justify-center mt-8 space-x-2">
         {videos.map((_, index) => (
           <button
@@ -147,5 +133,4 @@ const VideoCarousel = () => {
     </div>
   );
 };
-
 export default VideoCarousel;

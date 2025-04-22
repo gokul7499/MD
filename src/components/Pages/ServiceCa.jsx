@@ -4,7 +4,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import { Star, Trash2 } from 'lucide-react';
-
 const services = [
   {
     title: '55 Plus Housing',
@@ -41,33 +40,27 @@ const services = [
     ]
   }
 ];
-
 const ServiceCarousel = () => {
   const [addedServices, setAddedServices] = useState([]);
-
   const handleAddService = (service) => {
     if (!addedServices.some(s => s.title === service.title)) {
       setAddedServices([...addedServices, service]);
     }
   };
-
   const handleRemoveService = (serviceTitle) => {
     setAddedServices(addedServices.filter(service => service.title !== serviceTitle));
   };
-
   const handleWhatsAppShare = () => {
     const phoneNumber = '917057585497'; // Replace with actual number
     const message = `I'm interested in these services:\n\n${addedServices.map(service => `• ${service.title}`).join('\n')}`;
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
   };
-
   return (
     <div className="p-6 bg-gray-50 rounded-xl max-w-7xl mx-auto">
       <h2 className="text-2xl font-semibold text-center text-rose-800 mb-6">
         Choose the services you want
       </h2>
-      
       <Swiper
         slidesPerView={1}
         spaceBetween={30}
@@ -111,8 +104,6 @@ const ServiceCarousel = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-
-      {/* Added Services Section */}
       {addedServices.length > 0 && (
         <div className="bg-white p-6 rounded-xl shadow-md">
           <h3 className="text-xl font-semibold text-gray-800 mb-4">
@@ -138,7 +129,6 @@ const ServiceCarousel = () => {
               </div>
             ))}
           </div>
-          
           <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
             <button 
               onClick={handleWhatsAppShare}
@@ -164,8 +154,6 @@ const ServiceCarousel = () => {
           </div>
         </div>
       )}
-
-      {/* Add this to your global CSS or style tag */}
       <style jsx global>{`
         .swiper-container {
           padding-bottom: 30px;
@@ -187,5 +175,4 @@ const ServiceCarousel = () => {
     </div>
   );
 };
-
 export default ServiceCarousel;

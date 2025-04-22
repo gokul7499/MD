@@ -6,20 +6,16 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { FaStar, FaUsers } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
-
 const ServiceCarousel = () => {
   const { t } = useTranslation();
-
   const services = [
     { title: t("services.0.title"), image: "/img/buildingp.jpg" },
     { title: t("services.1.title"), image: "/img/fitting.png" },
     { title: t("services.2.title"), image: "/img/Plumbing.png" },
     { title: t("services.3.title"), image: "/img/ACService.png" },
   ];
-
   return (
     <div className="py-10 px-4 sm:px-7 bg-white max-w-7xl mx-auto relative">
-      {/* Header */}
       <div className="text-center mb-8">
         <div className="flex flex-wrap justify-center gap-6 text-gray-800 text-lg font-medium">
           <span className="flex items-center gap-2">
@@ -32,8 +28,6 @@ const ServiceCarousel = () => {
           </span>
         </div>
       </div>
-
-      {/* Swiper Carousel */}
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         navigation
@@ -69,8 +63,6 @@ const ServiceCarousel = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-
-      {/* Force Swiper arrows to white */}
       <style jsx global>{`
         .swiper-button-prev,
         .swiper-button-next {
@@ -85,5 +77,4 @@ const ServiceCarousel = () => {
     </div>
   );
 };
-
 export default ServiceCarousel;
