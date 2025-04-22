@@ -1,13 +1,11 @@
 import { FaMoon, FaSun } from 'react-icons/fa';
-import { useTheme } from "../ThemeContext";  // Import the hook
-
+import { useTheme } from "../ThemeContext";
 const Nav = () => {
   const { theme, toggleTheme } = useTheme();
-
   return (
     <div className="navbar">
       <button onClick={toggleTheme}>
-        {theme === 'light' ? <FaMoon /> : <FaSun />} {/* Icon toggles based on the theme */}
+        {theme === 'light' ? <FaMoon /> : <FaSun />}
       </button>
     </div>
   );

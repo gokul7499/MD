@@ -36,7 +36,6 @@ const Nav = ({ userDetails: propUserDetails, onSettingsClick }) => {
 
   const initial = getUserInitial(userDetails?.name);
 
-  // Placeholder animation logic
   const placeholders = [
     '  Search for products',
     '  Search for brands',

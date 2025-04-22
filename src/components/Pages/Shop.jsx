@@ -1,5 +1,4 @@
 import React from 'react';
-
 const products = [
   {
     id: 1,
@@ -61,7 +60,6 @@ const products = [
     image: 'https://media.fortuneindia.com/fortune-india/import/2022-03/9716a381-eb1f-48f0-8052-a7acb4fb0716/paint.jpg?w=640&auto=format,compress&fit=max&q=70',
   },
 ];
-
 const Shop = ({ onBuy }) => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 pt-24 pb-10 px-4">
@@ -103,5 +101,4 @@ const Shop = ({ onBuy }) => {
     </div>
   );
 };
-
 export default Shop;
