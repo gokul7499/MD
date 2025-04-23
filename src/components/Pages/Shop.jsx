@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import CartDrawer from '../Cart/Cart';
 
 const products = [
   {
@@ -63,12 +64,13 @@ const products = [
   },
 ];
 
-const Shop = ({ onBuy }) => {
+const Shop = () => {
   const location = useLocation();
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [searchQuery, setSearchQuery] = useState('');
+  const [cartItems, setCartItems] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // Handle URL search params
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const searchTerm = queryParams.get('query') || '';
@@ -76,7 +78,6 @@ const Shop = ({ onBuy }) => {
     filterProducts(searchTerm);
   }, [location.search]);
 
-  // Filter products based on search query
   const filterProducts = (query) => {
     if (!query) {
       setFilteredProducts(products);
@@ -90,16 +91,39 @@ const Shop = ({ onBuy }) => {
     setFilteredProducts(filtered);
   };
 
-  // Handle local search (if you want instant search without URL changes)
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
     filterProducts(query);
   };
 
+  const handleAddToCart = (product) => {
+    setCartItems(prevItems => {
+      const existingItem = prevItems.find(item => item.id === product.id);
+      if (existingItem) {
+        return prevItems.map(item =>
+          item.id === product.id 
+            ? { ...item, quantity: item.quantity + 1 } 
+            : item
+        );
+      }
+      return [...prevItems, { ...product, quantity: 1 }];
+    });
+    setIsCartOpen(true);
+  };
+
+  const handleRemoveFromCart = (productId) => {
+    setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
+  };
+
+  const handleBuySingle = (item) => {
+    // Implement single item purchase logic here
+    console.log('Buying single item:', item);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 pt-24 pb-10 px-4">
-      {/* Search Bar (optional - you can remove if using only Navbar search) */}
+      {/* Search Bar */}
       <div className="max-w-6xl mx-auto mb-6">
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -157,7 +181,7 @@ const Shop = ({ onBuy }) => {
               </p>
               <div className="flex gap-2 mt-4">
                 <button
-                  onClick={() => onBuy(product)}
+                  onClick={() => handleAddToCart(product)}
                   className="flex-1 bg-teal-600 text-white text-xs py-2 rounded hover:bg-teal-700 transition"
                 >
                   Add to Cart
@@ -170,6 +194,15 @@ const Shop = ({ onBuy }) => {
           ))}
         </div>
       )}
+
+      {/* Cart Drawer */}
+      <CartDrawer
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+        cartItems={cartItems}
+        onRemove={handleRemoveFromCart}
+        onBuySingle={handleBuySingle}
+      />
     </div>
   );
 };
