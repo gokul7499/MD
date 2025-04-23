@@ -1,6 +1,3 @@
-
-
-
 import React from 'react';
 import { X, Trash2, ShoppingCart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -21,8 +18,8 @@ const CartDrawer = ({ isOpen, onClose, cartItems = [], onRemove, onBuySingle }) 
       return;
     }
 
-    onClose(); // Close the drawer
-    navigate('/checkout'); // Navigate to checkout
+    onClose();
+    navigate('/checkout');
   };
 
   return (
