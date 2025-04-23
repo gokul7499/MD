@@ -7,6 +7,7 @@ import {
   FaWhatsapp,
   FaPhone,
   FaMapMarkerAlt,
+  FaLinkedin,
   FaEnvelope
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -28,9 +29,18 @@ const Footer = () => {
             {t('footerDescription')}
           </p>
           <div className="flex space-x-4 pt-1 justify-center md:justify-start">
-            <a href="#" className="text-white hover:text-blue-500 transition"><FaFacebook size={18} /></a>
-            <a href="#" className="text-white hover:text-pink-500 transition"><FaInstagram size={18} /></a>
-            <a href="#" className="text-white hover:text-green-500 transition"><FaWhatsapp size={18} /></a>
+            <a href="https://www.facebook.com/people/Manoj-Wakchoure/pfbid027pEYXhGUEd7vWviWsEefXKQf4RCPbuKfKdqronj67QaZZiX7AdwFNKZefz51dGU1l/" className="text-white hover:text-blue-500 transition"><FaFacebook size={18} /></a>
+            <a href="https://www.instagram.com/md_devolopers/?igsh=NTc4MTIwNjQ2YQ%3D%3D#" className="text-white hover:text-pink-500 transition"><FaInstagram size={18} /></a>
+            <a 
+  href="https://www.linkedin.com/in/manoj-wakchaure-mddevlopers" 
+  className="text-white hover:text-green-500 transition" 
+  target="_blank" 
+  rel="noopener noreferrer"
+>
+  <FaLinkedin size={18} />
+</a>
+
+            <a href="https://www.linkedin.com/in/manoj-wakchaure-mddevlopers" className="text-white hover:text-green-500 transition"><FaWhatsapp size={18} /></a>
           </div>
         </div>
 
