@@ -3,17 +3,22 @@ import { X, Trash2, ShoppingCart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-const CartDrawer = ({ isOpen, onClose, cartItems = [], onRemove, onBuySingle }) => {
+const CartDrawer = ({ isOpen, onClose, cartItems = [], onRemove = () => {}, onBuySingle = () => {} }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const total = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  // Safely calculate total
+  const total = Array.isArray(cartItems) 
+    ? cartItems.reduce((acc, item) => acc + (item?.price || 0) * (item?.quantity || 0), 0)
+    : 0;
 
   const handleProceedToCheckout = () => {
-    if (!cartItems || cartItems.length === 0) {
+    if (!Array.isArray(cartItems)) {  // Fixed: Added missing parenthesis
+      alert(t('cart.invalidCart'));
+      return;
+    }
+
+    if (cartItems.length === 0) {
       alert(t('cart.emptyCartAlert'));
       return;
     }
@@ -38,18 +43,20 @@ const CartDrawer = ({ isOpen, onClose, cartItems = [], onRemove, onBuySingle }) 
 
       {/* Cart Items */}
       <div className="p-4 h-[calc(100%-160px)] overflow-y-auto space-y-4">
-        {cartItems.length === 0 ? (
+        {!Array.isArray(cartItems) ? (
+          <p className="text-red-500">{t('cart.invalidCart')}</p>
+        ) : cartItems.length === 0 ? (
           <p className="text-gray-500">{t('cart.emptyCart')}</p>
         ) : (
-          cartItems.map((item) => (
+          cartItems.map((item = {}) => (
             <div
-              key={item.id}
+              key={item.id || Math.random().toString(36).substring(2, 9)}
               className="flex items-center gap-4 border p-3 rounded-md justify-between"
             >
               <div className="flex-1">
-                <h3 className="font-medium text-sm text-gray-900">{item.name}</h3>
-                <p className="text-sm text-gray-600">₹{item.price.toLocaleString()}</p>
-                <p className="text-sm text-gray-400">{t('cart.quantity')}: {item.quantity}</p>
+                <h3 className="font-medium text-sm text-gray-900">{item.name || t('cart.unnamedItem')}</h3>
+                <p className="text-sm text-gray-600">₹{(item.price || 0).toLocaleString()}</p>
+                <p className="text-sm text-gray-400">{t('cart.quantity')}: {item.quantity || 0}</p>
               </div>
               <div className="flex flex-col gap-2">
                 <button
@@ -78,9 +85,9 @@ const CartDrawer = ({ isOpen, onClose, cartItems = [], onRemove, onBuySingle }) 
         </div>
         <button
           onClick={handleProceedToCheckout}
-          disabled={cartItems.length === 0}
+          disabled={!Array.isArray(cartItems) || cartItems.length === 0}
           className={`w-full py-2 rounded-lg transition ${
-            cartItems.length === 0
+            !Array.isArray(cartItems) || cartItems.length === 0
               ? 'bg-gray-300 cursor-not-allowed text-gray-600'
               : 'bg-blue-600 hover:bg-blue-700 text-white'
           }`}
