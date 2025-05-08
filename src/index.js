@@ -3,17 +3,21 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import './i18n'; 
+import './i18n';
+import { HashRouter } from 'react-router-dom';
 // import { ThemeProvider } from './components/ThemeContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-  
-    
+  <HashRouter>
+    <React.StrictMode>
+
+
       <App />
-   
-  </React.StrictMode>
+
+
+    </React.StrictMode>
+  </HashRouter>
 );
 
 reportWebVitals();
