@@ -59,6 +59,11 @@ const Footer = () => {
               </Link>
             </li>
             <li>
+              <Link to="/about" className="text-white text-sm flex items-center justify-center md:justify-start hover:text-blue-400 transition">
+                <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>{t('aboutus')}
+              </Link>
+            </li>
+            <li>
               <Link to="/contact" className="text-white text-sm flex items-center justify-center md:justify-start hover:text-blue-400 transition">
                 <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>{t('contacts')}
               </Link>
